@@ -1,0 +1,24 @@
+<ion-card no-margin>
+
+  <ion-item>
+    <ion-icon name="book" item-start></ion-icon>
+    <h2>{{lesson.name}}</h2>
+    <p>{{lesson.startDateTime | date:'shortTime' }} - {{lesson.endDateTime | date:'shortTime'}}</p>
+    <button ion-button icon-left clear small item-right>
+      <ion-icon name="refresh-circle"></ion-icon> 轉堂
+    </button>
+  </ion-item>
+
+  <ion-item>
+    <span *ngFor="let s of lesson.students" >{{s.name}} </span>
+  </ion-item>
+
+  <ion-item>
+    <ion-row>
+      <ion-col><ion-icon name="person" item-start></ion-icon>{{lesson.teacher.name}}</ion-col>
+      <ion-col><ion-icon name="navigate" item-start></ion-icon>{{lesson.room.name}}</ion-col>
+    </ion-row>
+  </ion-item>
+
+
+</ion-card>

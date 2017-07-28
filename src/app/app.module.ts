@@ -8,6 +8,17 @@ import { ListPage } from '../pages/list/list';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import {UserService} from "../providers/user.service";
+import {MsgBoxModule} from "../components/msg-box/msg-box.module";
+import {LoginPageModule} from "../pages/login/login.module";
+import {AuthService} from "../providers/auth/auth.service";
+import {HttpModule} from "@angular/http";
+import {LessonService} from "../providers/lesson.service";
+import { LessonComponent } from '../components/lesson/lesson';
+import {LessonModule} from "../components/lesson/lesson.module";
+import { MakeupLessonComponent } from '../components/makeup-lesson/makeup-lesson';
+import {TimetablePageModule} from "../pages/timetable/timetable.module";
+
 
 @NgModule({
   declarations: [
@@ -17,7 +28,11 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     IonicModule.forRoot(MyApp),
+    MsgBoxModule,
+    LoginPageModule,
+    TimetablePageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -28,6 +43,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   providers: [
     StatusBar,
     SplashScreen,
+    UserService,
+    AuthService,
+    LessonService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
