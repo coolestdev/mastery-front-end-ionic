@@ -1,11 +1,11 @@
 # mastery-front-end-ionic
 
-Install:
+### Install:
 
 npm install -g cordova ionic
 npm install
 
-To start locally:
+### To start locally:
 
 ionic serve
 
