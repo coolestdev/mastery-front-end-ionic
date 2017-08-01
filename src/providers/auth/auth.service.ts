@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Role, RoleType} from "../../models/role/role";
 import {User} from "../../models/user/user";
-import {UserService} from "../user.service";
 import {App, NavController} from "ionic-angular";
 
 @Injectable()
@@ -11,7 +9,7 @@ export class AuthService {
   isLoggedIn: boolean = false;
   redirectUrl: string;
 
-  constructor(private userService: UserService, protected app: App) {
+  constructor(protected app: App) {
   }
 
   getNavCtrl(): NavController {
@@ -23,12 +21,12 @@ export class AuthService {
   }
 
   login(username:string,pwd:string): Promise<Boolean> {
-    let role = new Role();
-    role.type = "student";
+    //let role = new Role();
+    //role.type = "student";
 
     this.user=new User();
     this.user.name = username;
-    this.user.role = role;
+    //this.user.role = role;
     this.isLoggedIn = true;
     return Promise.resolve(true);
 
@@ -46,21 +44,21 @@ export class AuthService {
 
   hasStudentRight():boolean{
     if(this.user){
-        return (this.user.role.type == RoleType[RoleType.student])
+        return (this.user.role == 'student')
     }
     return false;
   }
 
   hasTeacherRight():boolean{
     if(this.user){
-        return (this.user.role.type == RoleType[RoleType.teacher] || this.user.role.type == RoleType[RoleType.admin])
+        return (this.user.role == 'teacher' || this.user.role =='admin')
     }
     return false;
   }
 
   hasAdminRight():boolean{
     if(this.user){
-        return this.user.role.type == RoleType[RoleType.admin]
+        return this.user.role == 'admin'
     }
     return false;
   }

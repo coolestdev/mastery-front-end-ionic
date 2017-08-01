@@ -8,7 +8,6 @@ import { ListPage } from '../pages/list/list';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import {UserService} from "../providers/user.service";
 import {MsgBoxModule} from "../components/msg-box/msg-box.module";
 import {LoginPageModule} from "../pages/login/login.module";
 import {AuthService} from "../providers/auth/auth.service";
@@ -43,7 +42,6 @@ import {TimetablePageModule} from "../pages/timetable/timetable.module";
   providers: [
     StatusBar,
     SplashScreen,
-    UserService,
     AuthService,
     LessonService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
