@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import {User} from "../../models/user/user";
 import {App, NavController} from "ionic-angular";
+import {Auth} from "../../models/user/auth";
+import {Http} from "@angular/http";
+
+declare const ENV;
 
 @Injectable()
 export class AuthService {
@@ -8,8 +12,10 @@ export class AuthService {
   user:User;
   isLoggedIn: boolean = false;
   redirectUrl: string;
+  loginUrl = ENV.masteryRestUrl + '/login';
+  updPwdUrl = ENV.masteryRestUrl + '/user/updatepwd/';
 
-  constructor(protected app: App) {
+  constructor(protected app: App, private http: Http) {
   }
 
   getNavCtrl(): NavController {
@@ -20,26 +26,34 @@ export class AuthService {
     console.error('An error occurred', error); // for demo purposes only
   }
 
-  login(username:string,pwd:string): Promise<Boolean> {
-    //let role = new Role();
-    //role.type = "student";
+  login(username:string,pwd:string): Promise<boolean> {
+    let auth:Auth = new Auth();
+    auth.username=username;
+    auth.pwd=pwd
+    return this.http.post(this.loginUrl,auth).toPromise().then(
+      response => {
+        if(response!=null){
+          this.user = response.json() as User;
+          this.isLoggedIn = true;
+          return true;
+        }
+      }
+    ).catch(this.handleError);
+  }
 
-    this.user=new User();
-    this.user.name = username;
-    //this.user.role = role;
-    this.isLoggedIn = true;
-    return Promise.resolve(true);
-
-    // return this.userService.getUserByUsername(username)
-    // .then(user => {
-    //   if(user.pwd===pwd){
-    //     this.user = user;
-    //     this.isLoggedIn = true;
-    //     return true;
-    //   }else{
-    //     return false;
-    //   }
-    // })
+  changePwd(oldPwd:string,newPwd:string){
+    console.log("changePwd");
+    let parm:string = `/${this.user.id}/${oldPwd}/${newPwd}/`;
+    let reqUrl:string = this.updPwdUrl + parm;
+    return this.http.get(reqUrl).toPromise().then(
+      response => {
+        if(response!=null){
+          var result:boolean = response.json() as boolean;
+          console.log(result);
+          return result;
+        }
+      }
+    ).catch(this.handleError);
   }
 
   hasStudentRight():boolean{

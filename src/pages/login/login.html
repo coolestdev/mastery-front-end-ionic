@@ -10,34 +10,38 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>登入</ion-title>
+    <ion-title>愛民碩士教室 課堂系統</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 <ion-content>
-  <div style="max-width: 500px; margin:0 auto;" text-center>
+  <div style="max-width: 500px; margin:0 auto; padding-top: 10px;" text-center>
+    <ion-img src="../assets/img/logo-mastery.png" style="background-color: transparent;"></ion-img>
+    <form name="loginForm" ng-submit="login()">
+      <ion-list>
 
-    <ion-list>
+        <ion-item>
+          <ion-label floating><ion-icon name="call"></ion-icon> 電話號碼</ion-label>
+          <ion-input name="username" type="text" [(ngModel)]="username" ></ion-input>
+        </ion-item>
 
-      <ion-item>
-        <ion-label floating><ion-icon name="contact"></ion-icon> 用戶名稱</ion-label>
-        <ion-input type="text" [(ngModel)]="username" ></ion-input>
-      </ion-item>
+        <ion-item>
+          <ion-label floating><ion-icon name="key"></ion-icon> 密碼</ion-label>
+          <ion-input name="password" type="password" [(ngModel)]="password"></ion-input>
+        </ion-item>
 
-      <ion-item>
-        <ion-label floating><ion-icon name="key"></ion-icon> 密碼</ion-label>
-        <ion-input type="password" [(ngModel)]="password"></ion-input>
-      </ion-item>
+        <ion-item>
+          <msg-box></msg-box>
+        </ion-item>
 
-      <ion-item>
-        <msg-box></msg-box>
-      </ion-item>
+      </ion-list>
 
-    </ion-list>
+      <div padding>
+        <button ion-button type="submit" color="primary" block [disabled]="waiting" (click)="login()" [disabled]="waiting">
+          <ion-icon name="log-in"></ion-icon> 登入</button>
+      </div>
 
-    <div padding>
-      <button ion-button color="primary" block [disabled]="waiting" (click)="login()"><ion-icon name="log-in"></ion-icon> 登入</button>
-    </div>
+    </form>
   </div>
 </ion-content>

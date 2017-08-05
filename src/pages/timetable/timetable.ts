@@ -1,4 +1,4 @@
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {AlertController, IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 //import * as jQuery from 'jquery';
@@ -7,7 +7,6 @@ import {Lesson} from "../../models/timetable/lesson";
 import {AuthService} from "../../providers/auth/auth.service";
 import {LessonService} from "../../providers/lesson.service";
 import {LessonOfDay} from "../../models/timetable/lesson-of-day";
-import {MakeupLessonComponent} from "../../components/makeup-lesson/makeup-lesson";
 
 
 @IonicPage({
@@ -19,18 +18,16 @@ import {MakeupLessonComponent} from "../../components/makeup-lesson/makeup-lesso
 })
 export class TimetablePage {
 
-  //@ViewChild(TitleBarComponent)
-  //titleBar:TitleBarComponent;
-
-  @ViewChild(MakeupLessonComponent)
-  makeupLesson:MakeupLessonComponent;
-
   timetable: Timetable;
   weekNo:number
 
   constructor(
-    public navCtrl: NavController, public navParams: NavParams,
-    private authService:AuthService, private lessonService: LessonService){
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public alertCtrl: AlertController,
+    public loadingCtrl: LoadingController,
+    private authService:AuthService,
+    private lessonService: LessonService){
     this.timetable = new Timetable();
   };
 
@@ -38,19 +35,48 @@ export class TimetablePage {
     if (!this.ionViewCanEnter()) return;
     this.weekNo = 1;
     this.timetable.lessonOfDays = [];
-    //console.log(this.timetable);
+
     this.lessonService.getWeeklyLsonByStd(this.authService.user.name,this.weekNo)
       .then(lessons=>{
         this.lsonToLsonDay(lessons);
       }).catch(()=>{
-      //this.titleBar.msgBox.sendAlterMsg("Oops!");
+      let alert = this.alertCtrl.create({
+        title: 'System error',
+        buttons: ['OK']
+      });
+      alert.present();
     });
   }
 
+  showLoading(content: string): any {
+    let loading = this.loadingCtrl.create({
+      content: content
+    });
+    return loading;
+  }
+
   public chkMkupLson(l:Lesson):void{
-    console.log("event capture");
-    //jQuery('#makeupLessonReveal').foundation('open');
-    this.makeupLesson.chkMkupLson(l);
+    console.log("chkMkup event capture");
+
+    let loading = this.showLoading('找尋合適課堂中...');
+    loading.present();
+
+    this.lessonService.getMkup(l,this.authService.user.name).then(lessons=>{
+      loading.dismiss();
+      console.log(lessons);
+      if(lessons.length>0){
+        this.navCtrl.push('makeup-lesson', {
+          lessons: lessons,
+          frLson: l
+        });
+      } else {
+        let alert = this.alertCtrl.create({
+          title: '無堂可轉',
+          buttons: ['OK']
+        });
+        alert.present();
+      }
+    });
   }
 
   private lsonToLsonDay(lsons:Lesson[]){

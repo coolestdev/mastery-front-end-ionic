@@ -10,7 +10,11 @@ export class LessonService {
 
   private headers = new Headers({'Content-Type': 'application/json'});
   private lessonUrl = ENV.masteryRestUrl + '/lesson/student';
-  private mkupLsonUrl = ENV.masteryRestUrl + '/mkuplson/find';
+  private mkupUrl = ENV.masteryRestUrl + '/mkup';
+  private mkupFindUrl = this.mkupUrl + '/find';
+  private mkupAplyUrl = this.mkupUrl + '/apply';
+  private mkupNewUrl = this.mkupAplyUrl + '/new';
+  private mkupExtUrl = this.mkupAplyUrl + '/exist';
 
   constructor(private http:Http){}
 
@@ -32,11 +36,29 @@ export class LessonService {
       .catch(this.handleError);
   }
 
-  getMkupLson(l:Lesson, stdName:string): Promise<Lesson[]>{
-    let reqUrl:string = this.mkupLsonUrl + `/${stdName}/`
+  getMkup(l:Lesson, stdName:string): Promise<Lesson[]>{
+    let reqUrl:string = this.mkupFindUrl + `/${stdName}/`
     return this.http.post(reqUrl,l).toPromise().then(
       response => {
         return response.json() as Lesson[]
+      }
+    ).catch(this.handleError);
+  }
+
+  aplyNewMkup(toLson:Lesson, stdId:string): Promise<boolean>{
+    let reqUrl:string = this.mkupNewUrl + `/${stdId}/`
+    return this.http.post(reqUrl,toLson).toPromise().then(
+      response => {
+        return response.json() as boolean;
+      }
+    ).catch(this.handleError);
+  }
+
+  aplyExtMkup(toLson:Lesson, stdLsonId:string): Promise<boolean>{
+    let reqUrl:string = this.mkupExtUrl + `/${stdLsonId}/`
+    return this.http.post(reqUrl,toLson).toPromise().then(
+      response => {
+        return response.json() as boolean;
       }
     ).catch(this.handleError);
   }

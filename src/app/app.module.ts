@@ -13,9 +13,6 @@ import {LoginPageModule} from "../pages/login/login.module";
 import {AuthService} from "../providers/auth/auth.service";
 import {HttpModule} from "@angular/http";
 import {LessonService} from "../providers/lesson.service";
-import { LessonComponent } from '../components/lesson/lesson';
-import {LessonModule} from "../components/lesson/lesson.module";
-import { MakeupLessonComponent } from '../components/makeup-lesson/makeup-lesson';
 import {TimetablePageModule} from "../pages/timetable/timetable.module";
 
 

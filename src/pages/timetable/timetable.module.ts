@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import {TimetablePage} from "./timetable";
-import {LessonComponent} from "../../components/lesson/lesson";
-import {MakeupLessonModule} from "../../components/makeup-lesson/makeup-lesson.module";
 import {LessonModule} from "../../components/lesson/lesson.module";
+import {MakeupLessonPageModule} from "../makeup-lesson/makeup-lesson.module";
 
 @NgModule({
   declarations: [
@@ -12,7 +11,7 @@ import {LessonModule} from "../../components/lesson/lesson.module";
   imports: [
     IonicPageModule.forChild(TimetablePage),
     LessonModule,
-    MakeupLessonModule
+    MakeupLessonPageModule
   ],
   exports: [
     TimetablePage

@@ -15,6 +15,14 @@ export class LessonComponent {
   constructor(public authService: AuthService, public lessonService: LessonService) {
   }
 
+  public isMkup():boolean{
+    for(let s of this.lesson.students){
+      if(this.authService.user != null && s.id == this.authService.user.id){
+        return s.isMkup;
+      }
+    }
+  }
+
   public chkMkupLson():void{
     console.log("chkmkupLesson");
     this.chkEvt.emit(this.lesson);

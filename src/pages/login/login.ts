@@ -31,6 +31,23 @@ export class LoginPage {
 
   ngOnInit(){
     this.msgBox.clearMsg();
+    this.username='';
+    this.password='';
+  }
+
+  ionViewDidLoad() {
+    // for testing
+    //this.autoLogin();
+  }
+
+  autoLogin() {
+    this.username='';
+    this.password='';
+    this.login();
+  }
+
+  toChangePasswordPage() {
+    this.nav.push('change-password');
   }
 
   login() {
