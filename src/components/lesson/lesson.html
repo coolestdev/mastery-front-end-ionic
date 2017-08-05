@@ -1,8 +1,8 @@
-<ion-card no-margin>
+<ion-card no-margin style="width: 100%;">
 
   <ion-item>
     <ion-icon name="book" item-start></ion-icon>
-    <h2>{{lesson.name}}</h2>
+    <h2 text-wrap>{{lesson.name}}</h2>
     <p>{{lesson.startDateTime | date:'shortTime' }} - {{lesson.endDateTime | date:'shortTime'}}</p>
     <button [disabled]="isMkup()" ion-button icon-left outline item-right (click)="chkMkupLson()" style="font-size: 1.4rem;">
       <ion-icon name="refresh-circle"></ion-icon> 轉堂
