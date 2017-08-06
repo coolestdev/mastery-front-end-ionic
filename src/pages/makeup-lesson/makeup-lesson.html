@@ -12,39 +12,37 @@
 </ion-header>
 
 <ion-content>
-  <div style="max-width: 1200px; margin:0 auto;" text-center>
-    <ion-list *ngFor="let lesson of lessons"  no-margin>
-      <ion-item style="padding-top: 0px; padding-bottom: 0px; margin: 0px;" no-margin>
-        {{lesson.startDateTime | date:'MMM dd, yyyy - EEEE'}}
-      </ion-item>
-      <ion-grid>
-        <ion-row>
-          <ion-col col-12 col-md-6 col-lg-6 col-xl-4>
-            <ion-card no-margin>
-              <ion-item>
-                <ion-icon name="book" item-start></ion-icon>
-                <h2 text-wrap>{{lesson.name}}</h2>
-                <p>{{lesson.startDateTime | date:'shortTime' }} - {{lesson.endDateTime | date:'shortTime'}}</p>
-                <button ion-button icon-left outline item-right (click)="aplyMkup(lesson)" style="font-size: 1.4rem;">
-                  <ion-icon name="checkmark"></ion-icon> 選擇
-                </button>
-              </ion-item>
+  <div style="max-width: 500px; margin:0 auto;" text-center>
 
-              <ion-item text-wrap>
-                <span *ngFor="let s of lesson.students" >{{s.name}} </span>
-              </ion-item>
 
-              <ion-item>
-                <ion-row>
-                  <ion-col><ion-icon name="person" item-start></ion-icon>{{lesson.teacher.name}}</ion-col>
-                  <ion-col><ion-icon name="navigate" item-start></ion-icon>{{lesson?.room?.name}}</ion-col>
-                </ion-row>
-              </ion-item>
-            </ion-card>
+          <ion-card *ngFor="let lesson of lessons"  style="width: 100%;">
+            <ion-item>
+              <ion-icon name="book" item-start></ion-icon>
+              <h2 text-wrap>{{lesson.name}}</h2>
+              <button ion-button icon-left outline item-right (click)="aplyMkup(lesson)" style="font-size: 1.4rem;">
+                <ion-icon name="checkmark"></ion-icon> 選擇
+              </button>
+            </ion-item>
 
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-list>
+            <ion-item text-wrap>
+              <ion-icon name="time" item-start></ion-icon>
+              <h3>{{lesson.startDateTime | date:'shortTime' }} - {{lesson.endDateTime | date:'shortTime'}}</h3>
+              <p>{{lesson.startDateTime | date:'MMM dd - EEE'}} </p>
+            </ion-item>
+
+            <ion-row>
+              <ion-col style="padding: 0px;">
+                <ion-item>
+                  <ion-icon name="person" item-start></ion-icon>{{lesson.teacher.name}}
+                </ion-item>
+              </ion-col>
+
+              <ion-col style="padding: 0px;">
+                <ion-item><ion-icon name="navigate" item-start></ion-icon>{{lesson?.room?.name}}</ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-card>
+
+
   </div>
 </ion-content>
