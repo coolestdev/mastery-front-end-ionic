@@ -19,7 +19,8 @@ import {LessonOfDay} from "../../models/timetable/lesson-of-day";
 export class TimetablePage {
 
   timetable: Timetable;
-  weekNo:number
+  weekNo: number;
+  isLoadingMore: boolean = false;
 
   constructor(
     public navCtrl: NavController,
@@ -120,6 +121,40 @@ export class TimetablePage {
     } else {
       this.navCtrl.setRoot('login');
     }
+  }
+
+  doInfinite(infiniteScroll) {
+    this.weekNo++;
+    this.lessonService.getWeeklyLsonByStd(this.authService.user.name,this.weekNo)
+      .then(lessons=>{
+        this.lsonToLsonDay(lessons);
+        infiniteScroll.complete();
+      }).catch(()=>{
+        let alert = this.alertCtrl.create({
+          title: 'System error',
+          buttons: ['OK']
+        });
+        alert.present();
+        infiniteScroll.complete();
+      });
+  }
+
+  loadMoreLesson() {
+    this.weekNo++;
+    this.isLoadingMore = true;
+    this.lessonService
+      .getWeeklyLsonByStd(this.authService.user.name,this.weekNo)
+      .then(lessons=>{
+        this.lsonToLsonDay(lessons);
+        this.isLoadingMore = false;
+      }).catch(()=>{
+        this.isLoadingMore = false;
+        let alert = this.alertCtrl.create({
+          title: 'System error',
+          buttons: ['OK']
+        });
+        alert.present();
+      });
   }
 
   private dayToDayStr(day:number):string{

@@ -13,7 +13,7 @@
     <ion-title>時間表 | {{authService.user?.name}}</ion-title>
     <ion-buttons end>
       <button ion-button (click)="authService.logout()">
-        <ion-icon name="log-out"></ion-icon> 登出
+        <ion-icon name="log-out"></ion-icon>&nbsp;登出
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -34,7 +34,13 @@
           </ion-col>
         </ion-row>
       </ion-grid>
-
     </ion-list>
+
+    <button *ngIf="!isLoadingMore && weekNo < 10" ion-button clear item-end icon-left (click)="loadMoreLesson($event)">
+      <ion-icon name="arrow-down"></ion-icon> 更多課堂
+    </button>
+    <ion-spinner *ngIf="isLoadingMore"></ion-spinner>
   </div>
+
+
 </ion-content>
