@@ -56,7 +56,7 @@ export class ChangePasswordPage {
           {
             text: 'OK',
             handler: data => {
-              this.navCtrl.setRoot('timetable');
+              this.navCtrl.setRoot('timetable-tab');
             }
           }
         ]

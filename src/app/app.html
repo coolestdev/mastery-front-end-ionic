@@ -8,7 +8,7 @@
   <ion-content>
     <ion-list>
       <button menuClose ion-item *ngIf="!authService.user" (click)="openPage('login')">登入</button>
-      <button menuClose ion-item *ngIf="authService.user" (click)="openPage('timetable')">時間表</button>
+      <button menuClose ion-item *ngIf="authService.user" (click)="openPage('timetable-tab')">時間表</button>
       <button menuClose ion-item *ngIf="authService.user" (click)="openPage('change-password')">更改密碼</button>
     </ion-list>
   </ion-content>

@@ -13,7 +13,7 @@ import {LoginPageModule} from "../pages/login/login.module";
 import {AuthService} from "../providers/auth/auth.service";
 import {HttpModule} from "@angular/http";
 import {LessonService} from "../providers/lesson.service";
-import {TimetablePageModule} from "../pages/timetable/timetable.module";
+import {TimetableTabPageModule} from "../pages/timetable-tab/timetable-tab.module";
 
 
 @NgModule({
@@ -28,7 +28,7 @@ import {TimetablePageModule} from "../pages/timetable/timetable.module";
     IonicModule.forRoot(MyApp),
     MsgBoxModule,
     LoginPageModule,
-    TimetablePageModule
+    TimetableTabPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
