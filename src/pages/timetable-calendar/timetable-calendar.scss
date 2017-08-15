@@ -1,0 +1,49 @@
+page-timetable-calendar {
+  .calendar th {
+    width: 14%;
+    border-bottom: 1px solid cadetblue;
+    font-size: 5.0vw;
+  }
+
+  .calendar td {
+    width: 14%;
+    padding-top: 14%;
+    position: relative;
+    border-bottom: 1px solid cadetblue;
+    font-size: 5.0vw;
+  }
+
+  @media screen and (min-width: 800px) {
+    .calendar th {
+      font-size: 36px;
+    }
+
+    .calendar td {
+      font-size: 36px;
+    }
+  }
+
+  .calendar td div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .calendar td div[todaytext] {
+    border-bottom: 0.5vw solid #6c6c6c;
+  }
+
+  .calendar td div[today] {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 50%;
+    background-color: #c8f0ff;
+    transform: translate(-50%, -50%);
+    padding: 8px;
+    z-index: -1;
+    width: 70%;
+    height: 70%;
+  }
+}
