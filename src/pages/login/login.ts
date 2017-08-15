@@ -37,12 +37,12 @@ export class LoginPage {
 
   ionViewDidLoad() {
     // for testing
-    //this.autoLogin();
+    this.autoLogin();
   }
 
   autoLogin() {
-    this.username='';
-    this.password='';
+    this.username='96841163';
+    this.password='1234';
     this.login();
   }
 
@@ -59,7 +59,7 @@ export class LoginPage {
           console.log(value);
           this.waiting = false;
           if(value){
-            let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : 'timetable';
+            let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : 'timetable-tab';
             this.logger.debug(redirect);
             this.nav.setRoot(redirect);
           }else{
