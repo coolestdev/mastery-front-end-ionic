@@ -10,7 +10,7 @@
     <button ion-button menuToggle >
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>時間表 | {{authService.user?.name}}</ion-title>
+    <ion-title>{{today | date: 'MMM y'}}</ion-title>
     <ion-buttons end>
       <button ion-button (click)="authService.logout()">
         <ion-icon name="log-out"></ion-icon>&nbsp;登出
@@ -22,7 +22,7 @@
 
 
 <ion-content>
-  <div style="max-width: 800px; max-height: 800px; margin:0 auto; padding-top: 20px;" text-center>
+  <div style="max-width: 800px; max-height: 800px; margin:0 auto; padding-top: 20px;">
     <table style="width: 100%" class="calendar">
       <thead>
         <tr>
@@ -36,15 +36,19 @@
         </tr>
       </thead>
       <tr *ngFor="let w of calendar.weeks">
-        <td><div [attr.todaytext]="w.days[0]?.isToday ? '' : null">{{w.days[0]?.date.getDate()}}</div><div [attr.today]="w.days[0]?.isToday ? '' : null">&nbsp;</div></td>
-        <td><div [attr.todaytext]="w.days[1]?.isToday ? '' : null">{{w.days[1]?.date.getDate()}}</div><div [attr.today]="w.days[1]?.isToday ? '' : null">&nbsp;</div></td>
-        <td><div [attr.todaytext]="w.days[2]?.isToday ? '' : null">{{w.days[2]?.date.getDate()}}</div><div [attr.today]="w.days[2]?.isToday ? '' : null">&nbsp;</div></td>
-        <td><div [attr.todaytext]="w.days[3]?.isToday ? '' : null">{{w.days[3]?.date.getDate()}}</div><div [attr.today]="w.days[3]?.isToday ? '' : null">&nbsp;</div></td>
-        <td><div [attr.todaytext]="w.days[4]?.isToday ? '' : null">{{w.days[4]?.date.getDate()}}</div><div [attr.today]="w.days[4]?.isToday ? '' : null">&nbsp;</div></td>
-        <td><div [attr.todaytext]="w.days[5]?.isToday ? '' : null">{{w.days[5]?.date.getDate()}}</div><div [attr.today]="w.days[5]?.isToday ? '' : null">&nbsp;</div></td>
-        <td><div [attr.todaytext]="w.days[6]?.isToday ? '' : null">{{w.days[6]?.date.getDate()}}</div><div [attr.today]="w.days[6]?.isToday ? '' : null">&nbsp;</div></td>
+        <td *ngFor="let i of [0, 1, 2, 3, 4, 5, 6]">
+          <div [attr.todaytext]="w.days[i]?.isToday ? '' : null">{{w.days[i]?.date.getDate()}}</div>
+          <div [attr.event]="w.days[i]?.hasEvent ? '' : null">&nbsp;</div>
+        </td>
       </tr>
     </table>
+
+    <ion-item-group *ngFor="let lessonOfDay of timetable.lessonOfDays">
+      <ion-item-divider color="light">{{lessonOfDay.date | date:'MMM dd - EEE' }}</ion-item-divider>
+      <ion-item *ngFor="let lesson of lessonOfDay.lessons; let l=last">
+        <span style="font-weight: bold;">{{lesson.startDateTime | date:'shortTime' }}</span> {{lesson.name}}
+      </ion-item>
+    </ion-item-group>
   </div>
 
 </ion-content>

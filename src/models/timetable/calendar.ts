@@ -1,37 +1,47 @@
-export class Calendar<T> {
-  weeks: Week<T>[] = [];
+export class Calendar {
+  weeks: Week[] = [];
 
-  public static build<T>(today: Date) : Calendar<T> {
-    var c = new Calendar<T>();
-    var week = new Week<T>();
+  public static build(today: Date) : Calendar {
+    var c = new Calendar();
+    var week = new Week();
     var lastDay = today;
 
     while (c.weeks.length < 4) {
-      console.log(`${lastDay} : ${lastDay.getDay()}`);
-      week.days[lastDay.getDay()] = new SingleDate<T>(lastDay);
+      week.days[lastDay.getDay()] = new SingleDate(lastDay);
       lastDay = new Date(lastDay.getTime() + (1000 * 60 * 60 * 24));
 
       // i.e. sunday
       if (lastDay.getDay() == 0) {
         c.weeks.push(week);
-        week = new Week<T>();
+        week = new Week();
       }
     }
     return c;
   }
+
+  public setHasEvent(inputDate: Date, hasEvent: boolean) {
+    this.weeks.forEach(w => {
+      w.days
+        .filter(d => d != null)
+        .filter(d => d.date.toDateString() == inputDate.toDateString())
+        .forEach(d => {
+          console.log(`set hasEvent = ${hasEvent} on ${inputDate}`);
+          d.hasEvent = hasEvent;
+        })
+    })
+  }
 }
 
-export class Week<T> {
-  days: SingleDate<T>[] = [null, null, null, null, null, null, null];
+export class Week {
+  days: SingleDate[] = [null, null, null, null, null, null, null];
 }
 
-export class SingleDate<T> {
-  isToday: boolean;
-  events: T[];
+export class SingleDate {
+  public isToday: boolean;
+  public hasEvent: boolean;
 
-  constructor(private date: Date) {
+  constructor(public date: Date) {
     this.isToday = date.toDateString() == (new Date()).toDateString();
-    console.log(`${date} isToday? ${this.isToday}`);
   }
 }
 

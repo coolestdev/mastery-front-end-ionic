@@ -14,6 +14,7 @@ import {AuthService} from "../providers/auth/auth.service";
 import {HttpModule} from "@angular/http";
 import {LessonService} from "../providers/lesson.service";
 import {TimetableTabPageModule} from "../pages/timetable-tab/timetable-tab.module";
+import {CachedLessonService} from "../providers/cached-lesson.service";
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import {TimetableTabPageModule} from "../pages/timetable-tab/timetable-tab.modul
     SplashScreen,
     AuthService,
     LessonService,
+    CachedLessonService,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     { provide: LOCALE_ID, useValue: "zh-HK" },
   ]
