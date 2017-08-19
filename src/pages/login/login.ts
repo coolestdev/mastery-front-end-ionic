@@ -37,12 +37,12 @@ export class LoginPage {
 
   ionViewDidLoad() {
     // for testing
-    this.autoLogin();
+    //this.autoLogin();
   }
 
   autoLogin() {
-    this.username='96841163';
-    this.password='1234';
+    this.username='';
+    this.password='';
     this.login();
   }
 
