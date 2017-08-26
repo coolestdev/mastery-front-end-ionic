@@ -42,5 +42,7 @@
     <ion-spinner *ngIf="isLoadingMore"></ion-spinner>
   </div>
 
-
+  <ion-fab right bottom>
+    <button ion-fab small color="light" (click)="ionViewWillEnter()"><ion-icon name="refresh"></ion-icon></button>
+  </ion-fab>
 </ion-content>

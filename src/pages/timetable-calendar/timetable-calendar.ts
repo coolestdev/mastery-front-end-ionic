@@ -39,7 +39,7 @@ export class TimetableCalendarPage {
     return loading;
   }
 
-  ionViewDidLoad() {
+  ionViewWillEnter() {
     console.log('ionViewDidLoad TimetableCalendarPage');
     this.timetable = new Timetable();
 

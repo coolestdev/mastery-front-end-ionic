@@ -45,8 +45,8 @@ export class LessonService {
     ).catch(this.handleError);
   }
 
-  aplyNewMkup(toLson:Lesson, stdId:string): Promise<boolean>{
-    let reqUrl:string = this.mkupNewUrl + `/${stdId}/`
+  aplyNewMkup(toLson:Lesson, stdId:string, fromLessonId: number): Promise<boolean>{
+    let reqUrl:string = this.mkupNewUrl + `/${stdId}/${fromLessonId}`
     return this.http.post(reqUrl,toLson).toPromise().then(
       response => {
         return response.json() as boolean;
@@ -54,8 +54,8 @@ export class LessonService {
     ).catch(this.handleError);
   }
 
-  aplyExtMkup(toLson:Lesson, stdLsonId:string): Promise<boolean>{
-    let reqUrl:string = this.mkupExtUrl + `/${stdLsonId}/`
+  aplyExtMkup(toLson:Lesson, stdId:string, stdLsonId:string, fromLessonId: number): Promise<boolean>{
+    let reqUrl:string = this.mkupExtUrl + `/${stdId}/${stdLsonId}/${fromLessonId}`
     return this.http.post(reqUrl,toLson).toPromise().then(
       response => {
         return response.json() as boolean;

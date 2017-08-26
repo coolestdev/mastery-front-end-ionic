@@ -11,7 +11,8 @@ export class CachedLessonService {
   constructor(private lessonService:LessonService){}
 
   resetCache(): void {
-    this.weekNo = 1;
+    console.log("reset cache in CachedLessonService");
+    this.weekNo = 0;
     this.lessons = [];
   }
 
