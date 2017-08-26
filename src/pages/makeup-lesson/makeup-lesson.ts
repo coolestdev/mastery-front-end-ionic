@@ -3,6 +3,7 @@ import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angula
 import {Lesson} from "../../models/timetable/lesson";
 import {AuthService} from "../../providers/auth/auth.service";
 import {LessonService} from "../../providers/lesson.service";
+import {CachedLessonService} from "../../providers/cached-lesson.service";
 
 /**
  * Generated class for the MakeupLessonPage page.
@@ -26,7 +27,9 @@ export class MakeupLessonPage {
               public navParams: NavParams,
               public alertCtrl: AlertController,
               private authService : AuthService,
-              private lessonService: LessonService) {
+              private lessonService: LessonService,
+              private cacheLessonService: CachedLessonService
+  ) {
     this.lessons = navParams.get('lessons');
     this.frLson = navParams.get('frLson');
   }
@@ -37,12 +40,13 @@ export class MakeupLessonPage {
 
   public aplyMkup(l:Lesson):void{
     console.log("aplyMkup event capture");
+    console.log(`frLson id: ${this.frLson.id}`);
 
     //TODO: show loading
 
     if(l.id == null){
       l.id = this.frLson.id;
-      this.lessonService.aplyNewMkup(l,this.authService.user.id).then(result=>{
+      this.lessonService.aplyNewMkup(l,this.authService.user.id, this.frLson.id).then(result=>{
         console.log("apply new result=" + result);
         this.procAplyMkupResult(result);
       });
@@ -56,7 +60,7 @@ export class MakeupLessonPage {
         }
 
         if(stdLsonId){
-          this.lessonService.aplyExtMkup(l,stdLsonId).then(result=>{
+          this.lessonService.aplyExtMkup(l, this.authService.user.id, stdLsonId, this.frLson.id).then(result=>{
             console.log("apply exist result=" + result);
             this.procAplyMkupResult(result);
           });
@@ -66,6 +70,7 @@ export class MakeupLessonPage {
   }
 
   private procAplyMkupResult(result:boolean):void{
+    this.cacheLessonService.resetCache();
     if(result){
       let prompt = this.alertCtrl.create({
         title: '轉堂成功',
