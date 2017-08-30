@@ -5,7 +5,7 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
+<div #headDiv>
   <ion-navbar color="primary">
     <button ion-button menuToggle >
       <ion-icon name="menu"></ion-icon>
@@ -17,40 +17,50 @@
       </button>
     </ion-buttons>
   </ion-navbar>
-
+</div>
 </ion-header>
-
-
-<ion-content>
-  <div style="max-width: 800px; max-height: 800px; margin:0 auto; padding-top: 20px;">
-    <table style="width: 100%" class="calendar">
-      <thead>
-        <tr>
-          <th>日</th>
-          <th>一</th>
-          <th>二</th>
-          <th>三</th>
-          <th>四</th>
-          <th>五</th>
-          <th>六</th>
-        </tr>
-      </thead>
-      <tr *ngFor="let w of calendar.weeks">
-        <td *ngFor="let i of [0, 1, 2, 3, 4, 5, 6]">
-          <div [attr.todaytext]="w.days[i]?.isToday ? '' : null">{{w.days[i]?.date.getDate()}}</div>
-          <div [attr.event]="w.days[i]?.hasEvent ? '' : null">&nbsp;</div>
-        </td>
-      </tr>
-    </table>
-
-    <ion-item-group *ngFor="let lessonOfDay of timetable.lessonOfDays">
-      <ion-item-divider color="light">{{lessonOfDay.date | date:'MMM dd - EEE' }}</ion-item-divider>
-      <ion-item *ngFor="let lesson of lessonOfDay.lessons; let l=last">
-        <span style="font-weight: bold;">{{lesson.startDateTime | date:'shortTime' }}</span> {{lesson.name}}
-      </ion-item>
-    </ion-item-group>
-  </div>
-
+<ion-content style="overflow-y:hidden;">
+  <ion-grid>
+    <ion-row>
+      <ion-col col-12 col-sm-6 col-md-5 col-lg-4>
+          <table style="width: 100%; position:sticky; top:0px;" class="calendar" #calTable>
+            <thead>
+              <tr>
+                <th>日</th>
+                <th>一</th>
+                <th>二</th>
+                <th>三</th>
+                <th>四</th>
+                <th>五</th>
+                <th>六</th>
+              </tr>
+            </thead>
+            <tr *ngFor="let w of calendar.weeks">
+              <td *ngFor="let i of [0, 1, 2, 3, 4, 5, 6]">
+                <div [attr.todaytext]="w.days[i]?.isToday ? '' : null">
+                  <div *ngIf="w.days[i]?.hasEvent; then wEvent else woEvent"></div>
+                  <ng-template #wEvent><a href="#{{w.days[i]?.date | date:'yyyyMMdd'}}">{{w.days[i]?.date.getDate()}}</a></ng-template>
+                  <ng-template #woEvent>{{w.days[i]?.date.getDate()}}</ng-template>
+                </div>
+                <div [attr.event]="w.days[i]?.hasEvent ? '' : null">&nbsp;</div>
+              </td>
+            </tr>
+          </table>
+      </ion-col>
+      <ion-col col-12 col-sm-6 col-md-7 col-lg-8>
+        <div [ngStyle]="{'max-height.px':contentHeight, 'overflow-y':'auto'}">
+        <ion-item-group *ngFor="let lessonOfDay of timetable.lessonOfDays">
+          <ion-item-divider color="light" id="{{lessonOfDay.date | date:'yyyyMMdd' }}">{{lessonOfDay.date | date:'MMM dd - EEE' }}</ion-item-divider>
+          <ion-item *ngFor="let lesson of lessonOfDay.lessons; let l=last">
+            <!-- <span style="font-weight: bold;">{{lesson.startDateTime | date:'shortTime' }}</span><br>{{lesson.name}} -->
+            <h3>{{lesson.startDateTime | date:'shortTime' }} - {{lesson.endDateTime | date:'shortTime'}}</h3>
+            <h3>{{lesson.name}}</h3>
+          </ion-item>
+        </ion-item-group>
+      </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
   <ion-fab right bottom>
     <button ion-fab small color="light" (click)="ionViewWillEnter()"><ion-icon name="refresh"></ion-icon></button>
   </ion-fab>
