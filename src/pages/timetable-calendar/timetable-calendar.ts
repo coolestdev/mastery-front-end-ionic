@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import {AlertController, IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
+import {Component,ElementRef,ViewChild,DoCheck} from '@angular/core';
+import {AlertController, IonicPage, LoadingController, NavController, NavParams, Platform} from 'ionic-angular';
 import {Calendar} from "../../models/timetable/calendar";
 import {Lesson} from "../../models/timetable/lesson";
 import {AuthService} from "../../providers/auth/auth.service";
@@ -14,17 +14,28 @@ import {LessonOfDay} from "../../models/timetable/lesson-of-day";
   selector: 'page-timetable-calendar',
   templateUrl: 'timetable-calendar.html',
 })
-export class TimetableCalendarPage {
+export class TimetableCalendarPage implements DoCheck {
   calendar: Calendar;
   timetable: Timetable;
   isLoadingMore: boolean = false;
   today = new Date();
+  tableHeight:number = 0;
+  headerHeight:number = 0;
+  platformHeight:number = 0;
+  contentHeight:number = 0;
+
+  @ViewChild('calTable')
+  calTable:ElementRef;
+
+  @ViewChild('headDiv')
+  headDiv:ElementRef;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
+    private platform: Platform,
     private authService: AuthService,
     private cachedLessonService: CachedLessonService
   ) {
@@ -95,6 +106,39 @@ export class TimetableCalendarPage {
       this.timetable.lessonOfDays.push(v);
     }
 
+  }
+
+  private needSplit():boolean{
+    if(this.platform.width()>576){
+      return true;
+    }
+    return false;
+  }
+
+  //sometimes the platformHeight will become zero
+  //the approximate height of header bar + bottom bar = 2.5 of header height
+  ngDoCheck(){
+    console.log("ngDoCheck");
+    this.tableHeight = this.calTable.nativeElement.offsetHeight;
+    this.headerHeight = this.headDiv.nativeElement.offsetHeight;
+    this.platformHeight = this.platform.height();
+    if(this.needSplit()){
+      if(this.platformHeight>0){
+          this.contentHeight = this.platformHeight - (this.headerHeight * 2.6);
+      }
+    }else{
+      if(this.platformHeight>0){
+        this.contentHeight = this.platformHeight - this.tableHeight - (this.headerHeight * 2.6);
+      }
+    }
+    console.log("tableHeight=" + this.tableHeight);
+    console.log("headerHeight=" + this.headerHeight * 3);
+    console.log("platformHeight=" + this.platformHeight);
+    console.log("contentHeight=" + this.contentHeight);
+  }
+
+  getContentHeight():number{
+     return this.contentHeight;
   }
 
 }
