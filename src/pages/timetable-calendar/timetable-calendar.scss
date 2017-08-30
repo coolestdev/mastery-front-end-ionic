@@ -1,8 +1,9 @@
 page-timetable-calendar {
+
   .calendar th {
     width: 14%;
     border-bottom: 1px solid cadetblue;
-    font-size: 4.0vw;
+    font-size: 2rem;
   }
 
   .calendar td {
@@ -10,17 +11,7 @@ page-timetable-calendar {
     padding-top: 10%;
     position: relative;
     border-bottom: 1px solid cadetblue;
-    font-size: 4.0vw;
-  }
-
-  @media screen and (min-width: 800px) {
-    .calendar th {
-      font-size: 32px;
-    }
-
-    .calendar td {
-      font-size: 32px;
-    }
+    font-size: 2rem;
   }
 
   .calendar td div {
@@ -31,7 +22,11 @@ page-timetable-calendar {
   }
 
   .calendar td div[todaytext] {
-    border-bottom: 0.5vw solid #6c6c6c;
+    border-bottom: 0.3rem solid #6c6c6c;
+  }
+
+  .calendar a:link, a:visited, a:hover, a:active {
+    text-decoration: none;
   }
 
   .calendar td div[event] {
