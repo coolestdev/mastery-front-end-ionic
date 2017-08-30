@@ -31,7 +31,7 @@ export class LoginPage {
 
   ngOnInit(){
     this.msgBox.clearMsg();
-    this.username='';
+    this.username=localStorage.getItem('username');
     this.password='';
   }
 
@@ -57,6 +57,7 @@ export class LoginPage {
       .then(
         (value) => {
           console.log(value);
+          localStorage.setItem('username', this.username);
           this.waiting = false;
           if(value){
             let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : 'timetable-tab';
@@ -84,6 +85,11 @@ export class LoginPage {
     //     this.router.navigate([redirect]);
     //   }
     // });
+  }
+
+  clearInput() {
+    this.username = '';
+    this.password = '';
   }
 
 

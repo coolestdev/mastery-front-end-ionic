@@ -40,6 +40,8 @@
       <div padding>
         <button ion-button type="submit" color="primary" block [disabled]="waiting" (click)="login()" [disabled]="waiting">
           <ion-icon name="log-in"></ion-icon> 登入</button>
+
+        <button ion-button type="submit" clear (click)="clearInput()" style="margin-top: 20px;">重新輸入</button>
       </div>
 
     </form>
