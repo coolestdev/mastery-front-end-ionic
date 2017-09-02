@@ -14,6 +14,7 @@ export class AuthService {
   redirectUrl: string;
   loginUrl = ENV.masteryRestUrl + '/login';
   updPwdUrl = ENV.masteryRestUrl + '/user/updatepwd/';
+  checkUrl = ENV.masteryRestUrl + '/check';
 
   constructor(protected app: App, private http: Http) {
   }
@@ -54,6 +55,18 @@ export class AuthService {
         }
       }
     ).catch(this.handleError);
+  }
+
+  checkServer() : Promise<boolean> {
+    console.log("check server");
+
+    return this.http.get(this.checkUrl).toPromise().then(
+      response => {
+        return response.json() as boolean
+      }
+    ).catch(() => {
+      return Promise.resolve(false);
+    })
   }
 
   hasStudentRight():boolean{

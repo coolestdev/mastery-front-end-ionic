@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import {Logger} from "../../providers/logger/logger";
 import {AuthService} from "../../providers/auth/auth.service";
-import {IonicPage, NavController} from "ionic-angular";
+import {Alert, AlertController, IonicPage, NavController, Platform} from "ionic-angular";
 import {MsgBoxComponent} from "../../components/msg-box/msg-box.component";
 
 @IonicPage({
@@ -23,7 +23,11 @@ export class LoginPage {
   @Input() username: string;
   @Input() password: string;
 
-  constructor(public authService: AuthService, public nav: NavController) {
+  constructor(
+    public authService: AuthService,
+    public nav: NavController,
+    public alertCtrl: AlertController,
+  ) {
     this.waiting = false;
     this.username = '';
     this.password = '';
@@ -38,6 +42,20 @@ export class LoginPage {
   ionViewDidLoad() {
     // for testing
     //this.autoLogin();
+
+    this.authService.checkServer().then((value) => {
+      if (!value) this.showNetworkAlert();
+    }).catch(() => {
+      this.showNetworkAlert();
+    })
+  }
+
+  showNetworkAlert() {
+    let alert = this.alertCtrl.create({
+      title: '未能連接伺服器 <br/>請檢查網絡',
+      buttons: ['OK']
+    });
+    alert.present();
   }
 
   autoLogin() {
