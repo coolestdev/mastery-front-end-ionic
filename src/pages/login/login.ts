@@ -35,7 +35,7 @@ export class LoginPage {
 
   ngOnInit(){
     this.msgBox.clearMsg();
-    this.username=localStorage.getItem('username');
+    if (localStorage.getItem('username') != null) this.username=localStorage.getItem('username');
     this.password='';
   }
 
