@@ -6,6 +6,7 @@ export class Lesson{
   name: string;
   frLvl: string;
   toLvl: string;
+  category: string;
   startDateTime: Date;
   endDateTime: Date;
   room: Room;

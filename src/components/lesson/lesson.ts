@@ -33,6 +33,17 @@ export class LessonComponent {
     this.chkEvt.emit(this.lesson);
   }
 
+  public classify():string{
+
+    if(this.lesson.category.toUpperCase().includes("HOMEWORK")){
+      return "homework";
+    }else if(this.lesson.category.toUpperCase().includes("CHINESE")||this.lesson.category.toUpperCase().includes("ENGLISH")){
+      return "core";
+    }
+
+    return "other";
+  }
+
   public showMkupLsonPopup() {
     let prompt = this.alertCtrl.create({
       message: '如要取消或更改已調課堂 請電服務熱線： 4342 0024',
@@ -52,4 +63,3 @@ export class LessonComponent {
   }
 
 }
-

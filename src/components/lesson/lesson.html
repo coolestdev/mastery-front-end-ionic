@@ -1,5 +1,8 @@
-<ion-card no-margin style="width: 100%;">
-
+<ion-card no-margin style="width: 100%;"
+[class.core]="classify() === 'core'"
+[class.homework]="classify() === 'homework'"
+[class.other]="classify() === 'other'"
+>
   <ion-item>
     <ion-icon name="book" item-start></ion-icon>
     <h2 text-wrap>{{lesson.name}}</h2>
@@ -16,7 +19,6 @@
     <h2>{{lesson.startDateTime | date:'shortTime' }} - {{lesson.endDateTime | date:'shortTime'}}</h2>
   </ion-item>
 
-
   <ion-row>
     <ion-col style="padding: 0px;">
       <ion-item>
@@ -28,7 +30,5 @@
       <ion-item><ion-icon name="navigate" item-start></ion-icon>{{lesson?.room?.name}}</ion-item>
     </ion-col>
   </ion-row>
-
-
 
 </ion-card>
