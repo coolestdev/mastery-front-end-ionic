@@ -14,6 +14,7 @@ export class AuthService {
   redirectUrl: string;
   loginUrl = ENV.masteryRestUrl + '/login';
   updPwdUrl = ENV.masteryRestUrl + '/user/updatepwd/';
+  actUrl = ENV.masteryRestUrl + '/user/activate'
   checkUrl = ENV.masteryRestUrl + '/check';
 
   constructor(protected app: App, private http: Http) {
@@ -25,6 +26,20 @@ export class AuthService {
 
   private handleError(error: any): void {
     console.error('An error occurred', error); // for demo purposes only
+  }
+
+  activate(studentName:string, phone:string, mobile:string): Promise<boolean>{
+    let parm:string = `/${studentName}/${phone}/${mobile}/`;
+    let reqUrl:string = this.actUrl + parm;
+    return this.http.get(reqUrl).toPromise().then(
+      response => {
+        if(response!=null){
+          var result:boolean = response.json() as boolean;
+          console.log(result);
+          return result;
+        }
+      }
+    ).catch(this.handleError);
   }
 
   login(username:string,pwd:string): Promise<boolean> {
