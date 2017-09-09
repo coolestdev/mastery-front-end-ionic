@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component} from '@angular/core';
 import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {Lesson} from "../../models/timetable/lesson";
 import {AuthService} from "../../providers/auth/auth.service";
@@ -74,6 +74,7 @@ export class MakeupLessonPage {
     if(result){
       let prompt = this.alertCtrl.create({
         title: '轉堂成功',
+        cssClass: 'customAlert',
         buttons: [
           {
             text: 'OK',
@@ -87,6 +88,7 @@ export class MakeupLessonPage {
     }else{
       let alert = this.alertCtrl.create({
         title: '轉堂失敗',
+        cssClass: 'customAlert',
         buttons: ['OK']
       });
       alert.present();
