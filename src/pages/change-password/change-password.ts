@@ -36,22 +36,12 @@ export class ChangePasswordPage {
     console.log('ionViewDidLoad ChangePasswordPage');
   }
 
-  missingInput(): boolean {
-    if (this.oldPassword.length <= 0
-      || this.newPassword.length <= 0
-      || this.confirmPassword.length <= 0
-    )
-      return true;
-
-    return false;
-  }
-
   changePassword() {
-    if (!this.validated()) return;
 
     if (this.authService.changePwd(this.oldPassword, this.newPassword)) {
       let prompt = this.alertCtrl.create({
         title: '成功更改密碼',
+        cssClass: 'customAlert',
         buttons: [
           {
             text: 'OK',
@@ -65,6 +55,7 @@ export class ChangePasswordPage {
     } else {
       let prompt = this.alertCtrl.create({
         title: '更改密碼失敗',
+        cssClass: 'customAlert',
         buttons: [
           {
             text: 'OK'
@@ -76,12 +67,4 @@ export class ChangePasswordPage {
 
   }
 
-  private validated(): boolean {
-    if (this.newPassword != this.confirmPassword) {
-      this.msgBox.sendWarningMsg('新密碼不相同!');
-      return false;
-    }
-
-    return true;
-  }
 }
