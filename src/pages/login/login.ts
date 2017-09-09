@@ -1,7 +1,7 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import {Logger} from "../../providers/logger/logger";
 import {AuthService} from "../../providers/auth/auth.service";
-import {Alert, AlertController, IonicPage, NavController, Platform} from "ionic-angular";
+import {Alert, AlertController, IonicPage, NavController} from "ionic-angular";
 import {MsgBoxComponent} from "../../components/msg-box/msg-box.component";
 
 @IonicPage({
@@ -53,6 +53,7 @@ export class LoginPage {
   showNetworkAlert() {
     let alert = this.alertCtrl.create({
       title: '未能連接伺服器 <br/>請檢查網絡',
+      cssClass: 'customAlert',
       buttons: ['OK']
     });
     alert.present();
@@ -66,6 +67,10 @@ export class LoginPage {
 
   toChangePasswordPage() {
     this.nav.push('change-password');
+  }
+
+  toActivatePage() {
+    this.nav.push('activate');
   }
 
   login() {
@@ -93,16 +98,6 @@ export class LoginPage {
         }
 
       )
-    // this.authService.login().subscribe(() => {
-    //   this.waiting = false;
-    //   if (this.authService.isLoggedIn) {
-    //     // Get the redirect URL from our auth service
-    //     // If no redirect has been set, use the default
-    //     let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/main/news';
-    //     // Redirect the user
-    //     this.router.navigate([redirect]);
-    //   }
-    // });
   }
 
   clearInput() {
