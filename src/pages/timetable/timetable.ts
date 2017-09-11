@@ -119,6 +119,7 @@ export class TimetablePage {
     if (this.authService.isLoggedIn) {
       return true;
     } else {
+      this.authService.redirectUrl='timetable-tab';
       this.navCtrl.setRoot('login');
     }
   }

@@ -73,6 +73,15 @@ export class TimetableCalendarPage implements DoCheck {
       });
   }
 
+  public ionViewCanEnter(): boolean {
+    if (this.authService.isLoggedIn) {
+      return true;
+    } else {
+      this.authService.redirectUrl='timetable-tab';
+      this.navCtrl.setRoot('login');
+    }
+  }
+
   isMkup(lesson: Lesson): boolean {
     for(let s of lesson.students){
       if(this.authService.user != null && s.id == this.authService.user.id){

@@ -38,6 +38,14 @@ export class MakeupLessonPage {
     console.log('ionViewDidLoad MakeupLessonPage');
   }
 
+  public ionViewCanEnter(): boolean {
+    if (this.authService.isLoggedIn) {
+      return true;
+    } else {
+      this.navCtrl.setRoot('login');
+    }
+  }
+
   public aplyMkup(l:Lesson):void{
     console.log("aplyMkup event capture");
     console.log(`frLson id: ${this.frLson.id}`);
