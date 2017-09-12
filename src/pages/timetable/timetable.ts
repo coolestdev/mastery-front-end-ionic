@@ -1,12 +1,11 @@
 import {AlertController, IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {Component} from '@angular/core';
 
-//import * as jQuery from 'jquery';
-import {Timetable} from "../../models/timetable/timetable";
-import {Lesson} from "../../models/timetable/lesson";
-import {AuthService} from "../../providers/auth/auth.service";
-import {LessonService} from "../../providers/lesson.service";
-import {LessonOfDay} from "../../models/timetable/lesson-of-day";
+import { Timetable } from "../../models/timetable/timetable";
+import { Lesson } from "../../models/timetable/lesson";
+import { AuthService } from "../../providers/auth/auth.service";
+import { LessonService } from "../../providers/lesson.service";
+import { LessonOfDay } from "../../models/timetable/lesson-of-day";
 
 
 @IonicPage({
@@ -51,7 +50,8 @@ export class TimetablePage {
 
   showLoading(content: string): any {
     let loading = this.loadingCtrl.create({
-      content: content
+      content: content,
+      cssClass: 'customLoading'
     });
     return loading;
   }
@@ -109,10 +109,6 @@ export class TimetablePage {
       this.timetable.lessonOfDays.push(v);
     }
 
-  }
-
-  ngAfterViewInit(){
-    //jQuery('#makeupLessonReveal').foundation();
   }
 
   public ionViewCanEnter(): boolean {

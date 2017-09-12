@@ -1,7 +1,6 @@
-import {Component, ViewChild} from '@angular/core';
-import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
-import {MsgBoxComponent} from "../../components/msg-box/msg-box.component";
-import {AuthService} from "../../providers/auth/auth.service";
+import { Component} from '@angular/core';
+import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AuthService} from "../../providers/auth/auth.service";
 
 /**
  * Generated class for the ChangePasswordPage page.
@@ -22,9 +21,6 @@ export class ChangePasswordPage {
   oldPassword: string = '';
   newPassword: string = '';
   confirmPassword: string = '';
-
-  @ViewChild(MsgBoxComponent)
-  msgBox:MsgBoxComponent;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,

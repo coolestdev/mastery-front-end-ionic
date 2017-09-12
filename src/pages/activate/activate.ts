@@ -1,5 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Logger } from "../../providers/logger/logger";
+import { Component, Input } from '@angular/core';
 import { AuthService } from "../../providers/auth/auth.service";
 import { AlertController, ToastController, IonicPage, NavController } from "ionic-angular";
 
@@ -28,14 +27,6 @@ export class ActivatePage {
     this.stdName = '';
     this.phone = '';
     this.mobile = '';
-  }
-
-  ngOnInit(){
-  }
-
-  ionViewDidLoad() {
-    // for testing
-    //this.autoLogin();
   }
 
   activiate() {

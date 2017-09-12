@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {AuthService} from "../../providers/auth/auth.service";
 import {TimetablePage} from "../timetable/timetable";
 import {TimetableCalendarPage} from "../timetable-calendar/timetable-calendar";
 
@@ -16,7 +17,10 @@ export class TimetableTabPage {
   timetableCalendarPage: any;
   mySelectedIndex: number;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private authService: AuthService) {
     this.timetablePage = TimetablePage;
     this.timetableCalendarPage = TimetableCalendarPage;
     this.mySelectedIndex = navParams.get('tabIndex') || 0;
@@ -24,6 +28,15 @@ export class TimetableTabPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TimetableTabPage');
+  }
+
+  ionViewCanEnter(){
+    if(this.authService.isLoggedIn){
+      return true;
+    }
+
+    this.authService.redirectUrl = 'timetable-tab';
+    this.navCtrl.setRoot('login');
   }
 
 }
