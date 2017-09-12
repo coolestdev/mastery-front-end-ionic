@@ -1,14 +1,13 @@
 import { Injectable }    from '@angular/core';
-import { Headers, Http } from '@angular/http';
+import { Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
-import {Lesson} from "../models/timetable/lesson";
+import { Lesson } from "../models/timetable/lesson";
 
 declare const ENV;
 
 @Injectable()
 export class LessonService {
 
-  private headers = new Headers({'Content-Type': 'application/json'});
   private lessonUrl = ENV.masteryRestUrl + '/lesson/student';
   private mkupUrl = ENV.masteryRestUrl + '/mkup';
   private mkupFindUrl = this.mkupUrl + '/find';
