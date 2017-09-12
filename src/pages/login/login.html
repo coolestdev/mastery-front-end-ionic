@@ -15,26 +15,29 @@
 <ion-content>
   <div style="max-width: 500px; margin:0 auto; padding-top: 10px;" text-center >
     <img src="./assets/img/logo-mastery.png" style="background-color: transparent; max-width: 399px; width: 100%" />
-    <form name="loginForm" ng-submit="login()">
+    <form name="loginForm" ng-submit="login()" #loginForm="ngForm">
       <ion-list>
 
         <ion-item>
-          <ion-label color="primary" floating><ion-icon name="call"></ion-icon> 電話號碼</ion-label>
-          <ion-input name="username" type="text" [(ngModel)]="username" ></ion-input>
+          <ion-label color="primary" floating>
+            <ion-icon name="call"></ion-icon> 電話號碼
+          </ion-label>
+          <ion-input name="username" type="text" [(ngModel)]="username" #uname="ngModel" required></ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-label color="primary" floating><ion-icon name="key"></ion-icon> 密碼</ion-label>
-          <ion-input name="password" type="password" [(ngModel)]="password"></ion-input>
+          <ion-label color="primary" floating>
+            <ion-icon name="key"></ion-icon> 密碼
+          </ion-label>
+          <ion-input name="password" type="password" [(ngModel)]="password" #pw="ngModel" required></ion-input>
         </ion-item>
-
-        <ion-item>
-          <msg-box></msg-box>
-        </ion-item>
+        <div text-left padding-left>
+          &nbsp;
+        </div>
 
       </ion-list>
 
-      <button ion-button type="submit" color="primary" block [disabled]="waiting" (click)="login()" [disabled]="waiting">
+      <button ion-button type="submit" color="primary" block [disabled]="waiting" (click)="login()" [disabled]="!loginForm.form.valid&&!waiting">
         <ion-icon name="log-in"></ion-icon> 登入
       </button>
 
