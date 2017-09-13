@@ -31,7 +31,7 @@
           <ion-input name="phone" type="phone" [(ngModel)]="phone" #phoneNo="ngModel" required pattern="[0-9]{8}" maxlength="8"></ion-input>
         </ion-item>
         <div text-left padding-left>
-          <ion-label color="danger" *ngIf="phoneNo.invalid && phoneNo.dirty" style="font-size:0.9rem">必要為8位數字</ion-label>
+          <ion-label color="danger" *ngIf="phoneNo.invalid && phoneNo.dirty" style="font-size:1.4rem">必要為8位數字</ion-label>
         </div>
 
         <ion-item>
@@ -42,7 +42,7 @@
           <ion-input name="mobile" type="mobile" [(ngModel)]="mobile" #mobileNo="ngModel" required pattern="[0-9]{8}" maxlength="8"></ion-input>
         </ion-item>
         <div text-left padding-left>
-          <ion-label *ngIf="mobileNo.invalid && mobileNo.dirty" color="danger" style="font-size:0.9rem;">必要為8位數字</ion-label>
+          <ion-label *ngIf="mobileNo.invalid && mobileNo.dirty" color="danger" style="font-size:1.4rem;">必要為8位數字</ion-label>
         </div>
       </ion-list>
 
