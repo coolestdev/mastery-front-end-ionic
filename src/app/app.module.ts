@@ -13,6 +13,7 @@ import { HttpModule } from "@angular/http";
 import { LessonService } from "../providers/lesson.service";
 import { TimetableTabPageModule } from "../pages/timetable-tab/timetable-tab.module";
 import { CachedLessonService } from "../providers/cached-lesson.service";
+import {FCM} from "@ionic-native/fcm";
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { CachedLessonService } from "../providers/cached-lesson.service";
     CachedLessonService,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     { provide: LOCALE_ID, useValue: "zh-HK" },
+    FCM
   ]
 })
 export class AppModule {}
