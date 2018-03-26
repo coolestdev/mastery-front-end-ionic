@@ -1,5 +1,5 @@
 {
-  "production": false,
+  "production": true,
   "columnPerRow": 5,
-  "masteryRestUrl": "\"https://mastery-be.funfunspell.com/mastery/api\""
+  "masteryRestUrl": "\"https://be.masteryoim.com/mastery/api\""
 }
