@@ -13,7 +13,7 @@ export class AuthService {
   isLoggedIn: boolean = false;
   redirectUrl: string;
   loginUrl = ENV.masteryRestUrl + '/login';
-  updPwdUrl = ENV.masteryRestUrl + '/user/updatepwd/';
+  updPwdUrl = ENV.masteryRestUrl + '/user/updatepwd';
   actUrl = ENV.masteryRestUrl + '/user/activate'
   checkUrl = ENV.masteryRestUrl + '/check';
 
@@ -57,7 +57,7 @@ export class AuthService {
     ).catch(this.handleError);
   }
 
-  changePwd(oldPwd:string,newPwd:string){
+  changePwd(oldPwd:string,newPwd:string): Promise<boolean> {
     console.log("changePwd");
     let parm:string = `/${this.user.id}/${oldPwd}/${newPwd}/`;
     let reqUrl:string = this.updPwdUrl + parm;

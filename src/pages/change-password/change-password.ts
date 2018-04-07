@@ -34,33 +34,36 @@ export class ChangePasswordPage {
 
   changePassword() {
 
-    if (this.authService.changePwd(this.oldPassword, this.newPassword)) {
-      let prompt = this.alertCtrl.create({
-        title: '成功更改密碼',
-        cssClass: 'customAlert',
-        buttons: [
-          {
-            text: 'OK',
-            handler: data => {
-              this.navCtrl.setRoot('timetable-tab');
-            }
-          }
-        ]
-      });
-      prompt.present();
-    } else {
-      let prompt = this.alertCtrl.create({
-        title: '更改密碼失敗',
-        cssClass: 'customAlert',
-        buttons: [
-          {
-            text: 'OK'
-          }
-        ]
-      });
-      prompt.present();
-    }
-
+    this.authService.changePwd(this.oldPassword, this.newPassword).then(
+      response => {
+        if(response){
+          let prompt = this.alertCtrl.create({
+            title: '成功更改密碼',
+            cssClass: 'customAlert',
+            buttons: [
+              {
+                text: 'OK',
+                handler: data => {
+                  this.navCtrl.setRoot('timetable-tab');
+                }
+              }
+            ]
+          });
+          prompt.present();
+        }else{
+          let prompt = this.alertCtrl.create({
+            title: '更改密碼失敗',
+            cssClass: 'customAlert',
+            buttons: [
+              {
+                text: 'OK'
+              }
+            ]
+          });
+          prompt.present();
+        }
+      }
+    )
   }
 
 }
