@@ -30,7 +30,16 @@ export class LessonComponent {
 
   public chkMkupLson(): void{
     console.log("chkmkupLesson");
-    this.chkEvt.emit(this.lesson);
+    let prompt = this.alertCtrl.create({
+      message: '將會開放',
+      buttons: [
+        {
+          text: '返回'
+        }
+      ]
+    });
+    prompt.present();
+    //this.chkEvt.emit(this.lesson);
   }
 
   public classify():string{
