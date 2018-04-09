@@ -55,12 +55,12 @@ export class LessonComponent {
 
   public showMkupLsonPopup() {
     let prompt = this.alertCtrl.create({
-      message: '如要取消或更改已調課堂 請電服務熱線： 4342 0024',
+      message: '如要取消或更改已調課堂 請電服務熱線： 2567 6889',
       buttons: [
         {
           text: '致電',
           handler: data => {
-            window.open("tel:" + 85212345678);
+            window.open("tel:" + 85225676889);
           }
         },
         {
