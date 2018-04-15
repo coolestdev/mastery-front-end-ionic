@@ -41,4 +41,19 @@ page-timetable-calendar {
     width: 50%;
     height: 70%;
   }
+
+  .core {
+    border: 2px solid #213ba7;
+    box-shadow: 0px 0px 0px #FFFFFF;
+  }
+
+  .homework {
+    border: 2px solid #10b642;
+    box-shadow: 0px 0px 0px #FFFFFF;
+  }
+
+  .other {
+    border: 2px solid #f68716;
+    box-shadow: 0px 0px 0px #FFFFFF;
+  }
 }

@@ -12,7 +12,8 @@ export class AuthService {
   user:User;
   isLoggedIn: boolean = false;
   redirectUrl: string;
-  loginUrl = ENV.masteryRestUrl + '/login';
+  stdLoginUrl = ENV.masteryRestUrl + '/student/login';
+  prtLoginUrl = ENV.masteryRestUrl + '/parent/login';
   updPwdUrl = ENV.masteryRestUrl + '/user/updatepwd';
   actUrl = ENV.masteryRestUrl + '/user/activate'
   checkUrl = ENV.masteryRestUrl + '/check';
@@ -42,11 +43,26 @@ export class AuthService {
     ).catch(this.handleError);
   }
 
-  login(username:string,pwd:string): Promise<boolean> {
+  studentLogin(username:string,pwd:string): Promise<boolean> {
     let auth:Auth = new Auth();
     auth.username=username;
     auth.pwd=pwd
-    return this.http.post(this.loginUrl,auth).toPromise().then(
+    return this.http.post(this.stdLoginUrl,auth).toPromise().then(
+      response => {
+        if(response!=null){
+          this.user = response.json() as User;
+          this.isLoggedIn = true;
+          return true;
+        }
+      }
+    ).catch(this.handleError);
+  }
+
+  parentLogin(username:string,pwd:string): Promise<boolean> {
+    let auth:Auth = new Auth();
+    auth.username=username;
+    auth.pwd=pwd
+    return this.http.post(this.prtLoginUrl,auth).toPromise().then(
       response => {
         if(response!=null){
           this.user = response.json() as User;
@@ -84,23 +100,30 @@ export class AuthService {
     })
   }
 
-  hasStudentRight():boolean{
+  isStudent():boolean{
     if(this.user){
-        return (this.user.role == 'student')
+        return (this.user.role == 'student');
     }
     return false;
   }
 
-  hasTeacherRight():boolean{
+  isTeacher():boolean{
     if(this.user){
-        return (this.user.role == 'teacher' || this.user.role =='admin')
+        return (this.user.role == 'teacher');
     }
     return false;
   }
 
-  hasAdminRight():boolean{
+  isAdmin():boolean{
     if(this.user){
-        return this.user.role == 'admin'
+        return this.user.role == 'admin';
+    }
+    return false;
+  }
+
+  isParent():boolean{
+    if(this.user){
+      return this.user.role == 'parent';
     }
     return false;
   }

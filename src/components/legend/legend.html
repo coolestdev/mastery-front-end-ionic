@@ -1,0 +1,24 @@
+<ion-grid style="padding: 0px 0px 0px 0px;">
+  <ion-row>
+    <ion-col col-4>
+      <ion-chip style="width:100%">
+        <ion-icon name="book" color="core"></ion-icon>
+        <ion-label *ngIf="isSmallType()">中/英</ion-label>
+        <ion-label *ngIf="!isSmallType()">中/英文班</ion-label>
+      </ion-chip>
+    </ion-col>
+    <ion-col col-4>
+      <ion-chip style="width:100%">
+        <ion-icon name="book" color="homework"></ion-icon>
+        <ion-label *ngIf="isSmallType()">功課</ion-label>
+        <ion-label *ngIf="!isSmallType()">功課班</ion-label>
+      </ion-chip>
+    </ion-col>
+    <ion-col col-4>
+      <ion-chip style="width:100%">
+        <ion-icon name="book" color="other"></ion-icon>
+        <ion-label>其他</ion-label>
+      </ion-chip>
+    </ion-col>
+  </ion-row>
+</ion-grid>

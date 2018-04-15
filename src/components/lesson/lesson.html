@@ -3,21 +3,50 @@
 [class.homework]="classify() === 'homework'"
 [class.other]="classify() === 'other'"
 >
-  <ion-item>
-    <ion-icon name="book" item-start></ion-icon>
-    <h2 text-wrap>{{lesson.name}}</h2>
-    <button *ngIf="!isMkup()" ion-button icon-left outline item-right (click)="chkMkupLson()" style="font-size: 1.4rem;">
-      <ion-icon name="refresh-circle"></ion-icon> 轉堂
-    </button>
-    <button *ngIf="isMkup()" ion-button icon-left outline item-right (click)="showMkupLsonPopup()" style="font-size: 1.4rem; color: #d4422d; border-color: #d4422d;">
-      已調堂
-    </button>
-  </ion-item>
 
-  <ion-item text-wrap>
-    <ion-icon name="time" item-start></ion-icon>
-    <h2>{{lesson.startDateTime | date:'shortTime' }} - {{lesson.endDateTime | date:'shortTime'}}</h2>
-  </ion-item>
+  <div *ngIf="authService.isParent(); then prtBlock else stdBlock"></div>
+
+  <ng-template #prtBlock>
+    <ion-item text-wrap>
+      <ion-icon name="school" item-start></ion-icon>
+      <h2>{{lesson.student.name}}</h2>
+      <button *ngIf="!isMkup()" ion-button icon-left outline item-right (click)="chkMkupLson()" style="font-size: 1.4rem;">
+        <ion-icon name="refresh-circle"></ion-icon> 轉堂
+      </button>
+      <button *ngIf="isMkup()" ion-button icon-left outline item-right (click)="showMkupLsonPopup()" style="font-size: 1.4rem; color: #d4422d; border-color: #d4422d;">
+        已調堂
+      </button>
+    </ion-item>
+
+    <ion-item text-wrap>
+      <ion-icon name="time" item-start></ion-icon>
+      <h2>{{lesson.startDateTime | date:'shortTime' }} - {{lesson.endDateTime | date:'shortTime'}}</h2>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="book" item-start></ion-icon>
+      <h2 text-wrap>{{lesson.name}}</h2>
+    </ion-item>
+
+  </ng-template>
+
+  <ng-template #stdBlock>
+    <ion-item>
+      <ion-icon name="time" item-start></ion-icon>      
+      <h2>{{lesson.startDateTime | date:'shortTime' }} - {{lesson.endDateTime | date:'shortTime'}}</h2>
+      <button *ngIf="!isMkup()" ion-button icon-left outline item-right (click)="chkMkupLson()" style="font-size: 1.4rem;">
+        <ion-icon name="refresh-circle"></ion-icon> 轉堂
+      </button>
+      <button *ngIf="isMkup()" ion-button icon-left outline item-right (click)="showMkupLsonPopup()" style="font-size: 1.4rem; color: #d4422d; border-color: #d4422d;">
+        已調堂
+      </button>
+    </ion-item>
+
+    <ion-item text-wrap>
+      <ion-icon name="book" item-start></ion-icon>
+      <h2 text-wrap>{{lesson.name}}</h2>
+    </ion-item>
+  </ng-template>
 
   <ion-row>
     <ion-col style="padding: 0px;">

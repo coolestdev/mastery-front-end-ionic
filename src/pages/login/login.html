@@ -37,9 +37,20 @@
 
       </ion-list>
 
-      <button ion-button type="submit" color="primary" block [disabled]="waiting" (click)="login()" [disabled]="!loginForm.form.valid&&!waiting">
-        <ion-icon name="log-in"></ion-icon> 登入
-      </button>
+      <ion-grid style="padding: 0px 0px 0px 0px;">
+        <ion-row>
+          <ion-col col-6>
+            <button ion-button type="submit" color="primary" block [disabled]="waiting" (click)="studentLogin()" [disabled]="!loginForm.form.valid&&!waiting">
+              <ion-icon name="log-in"></ion-icon> 學生登入
+            </button>
+          </ion-col>
+          <ion-col col-6>
+            <button ion-button type="submit" color="primary" block [disabled]="waiting" (click)="parentLogin()" [disabled]="!loginForm.form.valid&&!waiting">
+              <ion-icon name="log-in"></ion-icon> 家長登入
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
 
       <button ion-button type="submit" clear (click)="toActivatePage()">啟動賬戶</button>
       <button ion-button type="submit" clear (click)="clearInput()">重新輸入</button>

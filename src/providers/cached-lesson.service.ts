@@ -16,8 +16,8 @@ export class CachedLessonService {
     this.lessons = [];
   }
 
-  getLessons(name: string, inputWeekNo: number): Promise<Lesson[]> {
-    console.log(`getting lessons from cached for ${name} until week ${inputWeekNo}`);
+  getStdLessons(name: string, inputWeekNo: number): Promise<Lesson[]> {
+    console.log(`getting student lessons from cached for ${name} until week ${inputWeekNo}`);
 
     if (inputWeekNo <= this.weekNo) {
       return Promise.resolve(this.lessons);
@@ -26,6 +26,30 @@ export class CachedLessonService {
     var loadingFunctions: Promise<Lesson[]>[] = [];
     for (var i = this.weekNo + 1; i <= inputWeekNo; i++) {
       loadingFunctions.push(this.lessonService.getWeeklyLsonByStd(name, i))
+    }
+
+    return Promise.all(loadingFunctions)
+      .then((res) => {
+        this.weekNo = inputWeekNo;
+        for (let lessons of res) {
+          console.log(`${lessons}`);
+          this.lessons.push(...lessons);
+        }
+        console.log('done');
+        return Promise.resolve(this.lessons)
+      });
+  }
+
+  getPrtLessons(phone: string, inputWeekNo: number): Promise<Lesson[]> {
+    console.log(`getting parent lessons from cached for ${phone} until week ${inputWeekNo}`);
+
+    if (inputWeekNo <= this.weekNo) {
+      return Promise.resolve(this.lessons);
+    }
+
+    var loadingFunctions: Promise<Lesson[]>[] = [];
+    for (var i = this.weekNo + 1; i <= inputWeekNo; i++) {
+      loadingFunctions.push(this.lessonService.getWeeklyLsonByPrt(phone, i))
     }
 
     return Promise.all(loadingFunctions)

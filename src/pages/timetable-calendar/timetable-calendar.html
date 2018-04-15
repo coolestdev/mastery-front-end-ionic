@@ -17,7 +17,6 @@
       </button>
     </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 <ion-content style="overflow-y:hidden;">
   <ion-grid>
@@ -46,13 +45,17 @@
               </td>
             </tr>
           </table>
+          <legend #legend></legend>
       </ion-col>
       <ion-col col-12 col-sm-6 col-md-7 col-lg-8>
         <div [ngStyle]="{'max-height.px':contentHeight, 'overflow-y':'auto'}">
         <ion-item-group *ngFor="let lessonOfDay of timetable.lessonOfDays">
           <ion-item-divider color="light" id="{{lessonOfDay.date | date:'yyyyMMdd' }}">{{lessonOfDay.date | date:'MMM dd - EEE' }}</ion-item-divider>
-          <ion-item *ngFor="let lesson of lessonOfDay.lessons; let l=last">
-            <!-- <span style="font-weight: bold;">{{lesson.startDateTime | date:'shortTime' }}</span><br>{{lesson.name}} -->
+          <ion-item *ngFor="let lesson of lessonOfDay.lessons; let l=last"
+          [class.core]="classify(lesson) === 'core'"
+          [class.homework]="classify(lesson) === 'homework'"
+          [class.other]="classify(lesson) === 'other'">
+            <h3 *ngIf="authService.isParent()">{{lesson.student.name}}</h3>
             <h3>{{lesson.startDateTime | date:'shortTime' }} - {{lesson.endDateTime | date:'shortTime'}}</h3>
             <h3>{{lesson.name}}</h3>
           </ion-item>

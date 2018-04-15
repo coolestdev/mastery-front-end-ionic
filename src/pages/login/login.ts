@@ -68,7 +68,7 @@ export class LoginPage {
   autoLogin() {
     this.username='';
     this.password='';
-    this.login();
+    this.studentLogin();
   }
 
   toChangePasswordPage() {
@@ -79,14 +79,46 @@ export class LoginPage {
     this.nav.push('activate');
   }
 
-  login() {
+  studentLogin() {
 
     this.waiting = true;
 
     let loading = this.showLoading('登入中...');
     loading.present();
 
-    this.authService.login(this.username, this.password)
+    this.authService.studentLogin(this.username, this.password)
+      .then(
+        (value) => {
+          loading.dismiss();
+          console.log(value);
+          localStorage.setItem('username', this.username);
+          this.waiting = false;
+          if(value){
+            let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : 'timetable-tab';
+            this.logger.debug(redirect);
+            this.nav.setRoot(redirect);
+          }else{
+            this.showMsg('密碼錯誤');
+          }
+        }
+      )
+      .catch((reject)=>{
+          this.waiting = false;
+          this.logger.error(reject);
+          this.showMsg('無此用戶');
+        }
+
+      )
+  }
+
+  parentLogin() {
+
+    this.waiting = true;
+
+    let loading = this.showLoading('登入中...');
+    loading.present();
+
+    this.authService.parentLogin(this.username, this.password)
       .then(
         (value) => {
           loading.dismiss();

@@ -36,16 +36,36 @@ export class TimetablePage {
     this.weekNo = 1;
     this.timetable.lessonOfDays = [];
 
-    this.lessonService.getWeeklyLsonByStd(this.authService.user.name,this.weekNo)
-      .then(lessons=>{
-        this.lsonToLsonDay(lessons);
-      }).catch(()=>{
-      let alert = this.alertCtrl.create({
-        title: 'System error',
-        buttons: ['OK']
+    this.loadLson();
+
+  }
+
+  private loadLson():void{
+    if(this.authService.isParent()){
+      this.lessonService.getWeeklyLsonByPrt(this.authService.user.contact,this.weekNo)
+        .then(lessons=>{
+          this.lsonToLsonDay(lessons);
+          this.isLoadingMore = false;
+        }).catch(()=>{
+        let alert = this.alertCtrl.create({
+          title: 'System error',
+          buttons: ['OK']
+        });
+        alert.present();
       });
-      alert.present();
-    });
+    }else{
+      this.lessonService.getWeeklyLsonByStd(this.authService.user.name,this.weekNo)
+        .then(lessons=>{
+          this.lsonToLsonDay(lessons);
+          this.isLoadingMore = false;
+        }).catch(()=>{
+        let alert = this.alertCtrl.create({
+          title: 'System error',
+          buttons: ['OK']
+        });
+        alert.present();
+      });
+    }
   }
 
   showLoading(content: string): any {
@@ -59,10 +79,20 @@ export class TimetablePage {
   public chkMkupLson(l:Lesson):void{
     console.log("chkMkup event capture");
 
+    if(this.authService.isParent()){
+      this.getMkupLson(l, l.student.name);
+    }else{
+      this.getMkupLson(l,this.authService.user.name);
+    }
+
+  }
+
+  private getMkupLson(l:Lesson, stdName:string){
+
     let loading = this.showLoading('找尋合適課堂中...');
     loading.present();
 
-    this.lessonService.getMkup(l,this.authService.user.name).then(lessons=>{
+    this.lessonService.getMkup(l,stdName).then(lessons=>{
       loading.dismiss();
       console.log(lessons);
       if(lessons.length>0){
@@ -120,7 +150,7 @@ export class TimetablePage {
     }
   }
 
-  doInfinite(infiniteScroll) {
+  /*doInfinite(infiniteScroll) {
     this.weekNo++;
     this.lessonService.getWeeklyLsonByStd(this.authService.user.name,this.weekNo)
       .then(lessons=>{
@@ -134,24 +164,12 @@ export class TimetablePage {
         alert.present();
         infiniteScroll.complete();
       });
-  }
+  }*/
 
   loadMoreLesson() {
     this.weekNo++;
     this.isLoadingMore = true;
-    this.lessonService
-      .getWeeklyLsonByStd(this.authService.user.name,this.weekNo)
-      .then(lessons=>{
-        this.lsonToLsonDay(lessons);
-        this.isLoadingMore = false;
-      }).catch(()=>{
-        this.isLoadingMore = false;
-        let alert = this.alertCtrl.create({
-          title: 'System error',
-          buttons: ['OK']
-        });
-        alert.present();
-      });
+    this.loadLson();
   }
 
   private dayToDayStr(day:number):string{

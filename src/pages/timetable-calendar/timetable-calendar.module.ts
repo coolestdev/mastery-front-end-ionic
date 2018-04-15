@@ -1,13 +1,15 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import {TimetableCalendarPage} from "./timetable-calendar";
+import { LegendModule } from "../../components/legend/legend.module";
+import { TimetableCalendarPage } from "./timetable-calendar";
 
 @NgModule({
   declarations: [
     TimetableCalendarPage,
   ],
   imports: [
-    IonicPageModule.forChild(TimetableCalendarPage)
+    IonicPageModule.forChild(TimetableCalendarPage),
+    LegendModule
   ],
   exports: [
     TimetableCalendarPage

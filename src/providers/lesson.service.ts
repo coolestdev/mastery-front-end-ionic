@@ -8,7 +8,8 @@ declare const ENV;
 @Injectable()
 export class LessonService {
 
-  private lessonUrl = ENV.masteryRestUrl + '/lesson/student';
+  private stdLessonUrl = ENV.masteryRestUrl + '/lesson/student';
+  private prtLessonUrl = ENV.masteryRestUrl + '/lesson/parent';
   private mkupUrl = ENV.masteryRestUrl + '/mkup';
   private mkupFindUrl = this.mkupUrl + '/find';
   private mkupAplyUrl = this.mkupUrl + '/apply';
@@ -22,9 +23,22 @@ export class LessonService {
     return Promise.reject(error.message || error);
   }
 
+  getWeeklyLsonByPrt(phone:string,weekNo:number): Promise<Lesson[]> {
+    let parm:string = `/${phone}/${weekNo}/`
+    let reqUrl:string = this.prtLessonUrl + parm;
+    console.log("reqUrl=" + reqUrl);
+    return this.http.get(reqUrl)
+      .toPromise()
+      .then(response => {
+        console.log(response.json());
+        return response.json() as Lesson[];
+      })
+      .catch(this.handleError);
+  }
+
   getWeeklyLsonByStd(name:string,weekNo:number): Promise<Lesson[]> {
     let parm:string = `/${name}/${weekNo}/`
-    let reqUrl:string = this.lessonUrl + parm;
+    let reqUrl:string = this.stdLessonUrl + parm;
     console.log("reqUrl=" + reqUrl);
     return this.http.get(reqUrl)
       .toPromise()

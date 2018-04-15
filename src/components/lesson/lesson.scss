@@ -5,17 +5,17 @@ lesson {
   }
 
   .core {
-    border: 3px solid #213ba7;
+    border: 3px solid color($colors, core, base);
     box-shadow: 0px 0px 0px #FFFFFF;
   }
 
   .homework {
-    border: 3px solid #10b642;
+    border: 3px solid color($colors, homework, base);
     box-shadow: 0px 0px 0px #FFFFFF;
   }
 
   .other {
-    border: 3px solid #f68716;
+    border: 3px solid color($colors, other, base);
     box-shadow: 0px 0px 0px #FFFFFF;
   }
 }

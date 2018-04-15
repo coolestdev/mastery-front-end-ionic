@@ -1,4 +1,4 @@
-import { Component,ElementRef,ViewChild,DoCheck } from '@angular/core';
+import { Component,ComponentRef,ElementRef,ViewChild,DoCheck } from '@angular/core';
 import { AlertController, IonicPage, LoadingController, NavController, NavParams, Platform } from 'ionic-angular';
 import { Calendar } from "../../models/timetable/calendar";
 import { Lesson } from "../../models/timetable/lesson";
@@ -23,12 +23,16 @@ export class TimetableCalendarPage implements DoCheck {
   headerHeight:number = 0;
   platformHeight:number = 0;
   contentHeight:number = 0;
+  legendHeight:number = 0;
 
   @ViewChild('calTable')
   calTable:ElementRef;
 
   @ViewChild('headDiv')
   headDiv:ElementRef;
+
+  @ViewChild('legend',{read: ElementRef})
+  legend:ElementRef;
 
   constructor(
     public navCtrl: NavController,
@@ -55,23 +59,45 @@ export class TimetableCalendarPage implements DoCheck {
     console.log('ionViewDidLoad TimetableCalendarPage');
     this.timetable = new Timetable();
 
+    this.loadLson();
+  }
+
+  private loadLson():void{
     let loading = this.showLoading('載入中...');
     loading.present();
 
-    this.cachedLessonService.getLessons(this.authService.user.name, 5)
-      .then(lessons => {
-        this.lsonToLsonDay(lessons);
-        loading.dismiss();
-      }).catch((e) => {
-        console.error(e);
+    if(this.authService.isParent()){
+      this.cachedLessonService.getPrtLessons(this.authService.user.contact, 5)
+        .then(lessons => {
+          this.lsonToLsonDay(lessons);
+          loading.dismiss();
+        }).catch((e) => {
+          console.error(e);
 
-        loading.dismiss();
-        let alert = this.alertCtrl.create({
-          title: 'System error',
-          buttons: ['OK']
+          loading.dismiss();
+          let alert = this.alertCtrl.create({
+            title: 'System error',
+            buttons: ['OK']
+          });
+          alert.present();
         });
-        alert.present();
-      });
+    }else{
+      this.cachedLessonService.getStdLessons(this.authService.user.name, 5)
+        .then(lessons => {
+          this.lsonToLsonDay(lessons);
+          loading.dismiss();
+        }).catch((e) => {
+          console.error(e);
+
+          loading.dismiss();
+          let alert = this.alertCtrl.create({
+            title: 'System error',
+            buttons: ['OK']
+          });
+          alert.present();
+        });
+    }
+
   }
 
   public ionViewCanEnter(): boolean {
@@ -84,11 +110,39 @@ export class TimetableCalendarPage implements DoCheck {
   }
 
   isMkup(lesson: Lesson): boolean {
-    for(let s of lesson.students){
-      if(this.authService.user != null && s.id == this.authService.user.id){
-        return s.isMkup;
+
+    if(!this.authService.user){
+      return false;
+    }
+
+    if(this.authService.isParent()){
+      for(let s of lesson.students){
+        for(let u of this.authService.user.students){
+          if(s.id == u.id){
+            return s.isMkup;
+          }
+        }
+      }
+    }else{
+      for(let s of lesson.students){
+        if( s.id == this.authService.user.id){
+          return s.isMkup;
+        }
       }
     }
+    return false;
+
+  }
+
+  public classify(lesson: Lesson):string{
+    console.log("classify = " + lesson.category.toUpperCase());
+    if(lesson.category.toUpperCase().includes("HOMEWORK")){
+      return "homework";
+    }else if(lesson.category.toUpperCase().includes("CHINESE")||lesson.category.toUpperCase().includes("ENGLISH")){
+      return "core";
+    }
+
+    return "other";
   }
 
   private lsonToLsonDay(lsons:Lesson[]){
@@ -131,6 +185,7 @@ export class TimetableCalendarPage implements DoCheck {
     console.log("ngDoCheck");
     this.tableHeight = this.calTable.nativeElement.offsetHeight;
     this.headerHeight = this.headDiv.nativeElement.offsetHeight;
+    this.legendHeight = this.legend.nativeElement.offsetHeight;
     this.platformHeight = this.platform.height();
     if(this.needSplit()){
       if(this.platformHeight>0){
@@ -138,7 +193,7 @@ export class TimetableCalendarPage implements DoCheck {
       }
     }else{
       if(this.platformHeight>0){
-        this.contentHeight = this.platformHeight - this.tableHeight - (this.headerHeight * 2.6);
+        this.contentHeight = this.platformHeight - this.tableHeight - this.legendHeight - (this.headerHeight * 2.6);
       }
     }
     console.log("tableHeight=" + this.tableHeight);

@@ -11,5 +11,6 @@ export class Lesson{
   endDateTime: Date;
   room: Room;
   teacher: Teacher;
+  student: Student;
   students: Student[];
 }
