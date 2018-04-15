@@ -1,4 +1,4 @@
-import { Component,ComponentRef,ElementRef,ViewChild,DoCheck } from '@angular/core';
+import { Component,ElementRef,ViewChild,DoCheck } from '@angular/core';
 import { AlertController, IonicPage, LoadingController, NavController, NavParams, Platform } from 'ionic-angular';
 import { Calendar } from "../../models/timetable/calendar";
 import { Lesson } from "../../models/timetable/lesson";

@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import { Component,ElementRef,ViewChild } from '@angular/core';
 
 @Component({
   selector: 'legend',
@@ -7,10 +6,14 @@ import { Platform } from 'ionic-angular';
 })
 export class LegendComponent {
 
-  constructor(private platform: Platform) {}
+  @ViewChild('grid')
+  grid:ElementRef;
+
+  constructor() {}
 
   isSmallType(){
-    if(this.platform.width()<=320){
+    console.log("grid length = " + this.grid.nativeElement.offsetWidth);
+    if(this.grid.nativeElement.offsetWidth<=320){
         return true;
     }
     return false;
