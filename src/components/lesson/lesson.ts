@@ -63,7 +63,7 @@ export class LessonComponent {
     if(this.lesson.category.toUpperCase().includes("HOMEWORK")){
       return "homework";
     }else if(this.lesson.category.toUpperCase().includes("CHINESE")
-      || this.lesson.category.toUpperCase().includes("ENGLIªSH")
+      || this.lesson.category.toUpperCase().includes("ENGLISH")
       || this.lesson.category.toUpperCase().includes("MATHS")
     ) {
       return "core";

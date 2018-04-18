@@ -3,7 +3,7 @@
     <name>愛民碩士教室</name>
     <description>Masteryoim class management system</description>
     <author email="masteryoim@masteryoim.com" href="http://masteryoim.com/">Masteryoim</author>
-    <content original-src="index.html" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
