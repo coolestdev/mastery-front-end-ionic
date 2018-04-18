@@ -46,14 +46,26 @@ export class LessonComponent {
 
   public chkMkupLson(): void{
     console.log("chkmkupLesson");
-    this.chkEvt.emit(this.lesson);
+    let prompt = this.alertCtrl.create({
+      message: '將會開放',
+      buttons: [
+        {
+          text: '返回'
+        }
+      ]
+    });
+    prompt.present();
+    //this.chkEvt.emit(this.lesson);
   }
 
   public classify():string{
 
     if(this.lesson.category.toUpperCase().includes("HOMEWORK")){
       return "homework";
-    }else if(this.lesson.category.toUpperCase().includes("CHINESE")||this.lesson.category.toUpperCase().includes("ENGLISH")){
+    }else if(this.lesson.category.toUpperCase().includes("CHINESE")
+      || this.lesson.category.toUpperCase().includes("ENGLIªSH")
+      || this.lesson.category.toUpperCase().includes("MATHS")
+    ) {
       return "core";
     }
 
@@ -62,12 +74,12 @@ export class LessonComponent {
 
   public showMkupLsonPopup() {
     let prompt = this.alertCtrl.create({
-      message: '如要取消或更改已調課堂 請電服務熱線： 4342 0024',
+      message: '如要取消或更改已調課堂 請電服務熱線： 2567 6889',
       buttons: [
         {
           text: '致電',
           handler: data => {
-            window.open("tel:" + 85212345678);
+            window.open("tel:" + 85225676889);
           }
         },
         {
