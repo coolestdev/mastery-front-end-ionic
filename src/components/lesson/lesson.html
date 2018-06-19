@@ -13,9 +13,6 @@
       <button *ngIf="!isMkup()" ion-button icon-left outline item-right (click)="chkMkupLson()" style="font-size: 1.4rem;">
         <ion-icon name="refresh-circle"></ion-icon> 轉堂
       </button>
-      <button *ngIf="isMkup()" ion-button icon-left outline item-right (click)="showMkupLsonPopup()" style="font-size: 1.4rem; color: #d4422d; border-color: #d4422d;">
-        已調堂
-      </button>
     </ion-item>
 
     <ion-item text-wrap>
@@ -32,7 +29,7 @@
 
   <ng-template #stdBlock>
     <ion-item>
-      <ion-icon name="time" item-start></ion-icon>      
+      <ion-icon name="time" item-start></ion-icon>
       <h2>{{lesson.startDateTime | date:'shortTime' }} - {{lesson.endDateTime | date:'shortTime'}}</h2>
       <button *ngIf="!isMkup()" ion-button icon-left outline item-right (click)="chkMkupLson()" style="font-size: 1.4rem;">
         <ion-icon name="refresh-circle"></ion-icon> 轉堂
