@@ -1,6 +1,6 @@
 import { Injectable }    from '@angular/core';
 import 'rxjs/add/operator/toPromise';
-import {Lesson} from "../models/timetable/lesson";
+import {Lesson} from "../models/lesson/lesson";
 import {LessonService} from "./lesson.service";
 
 @Injectable()

@@ -2,7 +2,7 @@ import {AlertController, IonicPage, LoadingController, NavController, NavParams}
 import {Component} from '@angular/core';
 
 import { Timetable } from "../../models/timetable/timetable";
-import { Lesson } from "../../models/timetable/lesson";
+import { Lesson } from "../../models/lesson/lesson";
 import { AuthService } from "../../providers/auth/auth.service";
 import { LessonService } from "../../providers/lesson.service";
 import { LessonOfDay } from "../../models/timetable/lesson-of-day";

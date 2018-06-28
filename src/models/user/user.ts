@@ -1,4 +1,4 @@
-import {Student} from "../timetable/student";
+import {Student} from "../role/student";
 
 export class User{
   id: string;

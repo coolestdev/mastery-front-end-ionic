@@ -1,6 +1,6 @@
-import {Room} from "./room";
-import {Teacher} from "./teacher";
-import {Student} from "./student";
+import {Room} from "../facility/room";
+import {Teacher} from "../role/teacher";
+import {Student} from "../role/student";
 export class Lesson{
   id: number;
   name: string;

@@ -1,5 +1,5 @@
  import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Lesson } from "../../models/timetable/lesson";
+import { Lesson } from "../../models/lesson/lesson";
 import { AuthService } from "../../providers/auth/auth.service";
 import { LessonService } from "../../providers/lesson.service";
 import { AlertController } from "ionic-angular";

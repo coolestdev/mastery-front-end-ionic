@@ -1,7 +1,7 @@
 import { Injectable }    from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
-import { Lesson } from "../models/timetable/lesson";
+import { Lesson } from "../models/lesson/lesson";
 
 declare const ENV;
 

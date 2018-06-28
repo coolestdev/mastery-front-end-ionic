@@ -1,0 +1,26 @@
+<table style="width: 100%; position:sticky; top:0px;" class="calendar" #calTable>
+  <thead>
+    <tr>
+      <td colspan="2" (click)='minusMonth()' text-center><ion-icon name="arrow-dropleft"></ion-icon></td>
+      <td colspan="3" text-center>{{date | date:'MMM yyyy'}}</td>
+      <td colspan="2" (click)='addMonth()' text-center><ion-icon name="arrow-dropright"></ion-icon></td>
+    </tr>
+    <tr>
+      <th>日</th>
+      <th>一</th>
+      <th>二</th>
+      <th>三</th>
+      <th>四</th>
+      <th>五</th>
+      <th>六</th>
+    </tr>
+  </thead>
+  <tr *ngFor="let w of calendar.weeks">
+    <td *ngFor="let i of [0, 1, 2, 3, 4, 5, 6]">
+      <div [attr.todaytext]="w.days[i]?.isToday ? '' : null" (click)="selectDate(w.days[i])">
+        {{w.days[i]?.date.getDate()}}
+      </div>
+      <div [attr.event]="w.days[i]?.hasEvent ? '' : null">&nbsp;</div>
+    </td>
+  </tr>
+</table>
