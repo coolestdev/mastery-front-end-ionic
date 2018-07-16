@@ -57,6 +57,7 @@ export class TimetableCalendarPage implements DoCheck {
 
   ionViewWillEnter() {
     console.log('ionViewDidLoad TimetableCalendarPage');
+    this.cachedLessonService.resetCache();
     this.timetable = new Timetable();
 
     this.loadLson();
