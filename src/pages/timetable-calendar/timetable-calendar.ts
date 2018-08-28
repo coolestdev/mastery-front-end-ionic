@@ -1,11 +1,11 @@
 import { Component,ElementRef,ViewChild,DoCheck } from '@angular/core';
 import { AlertController, IonicPage, LoadingController, NavController, NavParams, Platform } from 'ionic-angular';
-import { Calendar } from "../../models/timetable/calendar";
-import { Lesson } from "../../models/timetable/lesson";
+import { Calendar } from "../../models/calendar";
+import { Lesson } from "../../models/lesson";
 import { AuthService} from "../../providers/auth/auth.service";
 import { CachedLessonService } from "../../providers/cached-lesson.service";
-import { Timetable } from "../../models/timetable/timetable";
-import { LessonOfDay } from "../../models/timetable/lesson-of-day";
+import { Timetable } from "../../models/timetable";
+import { LessonOfDay } from "../../models/lesson-of-day";
 
 @IonicPage({
   name: 'timetable-calendar'

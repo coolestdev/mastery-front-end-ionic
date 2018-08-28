@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {User} from "../../models/user/user";
+import {User} from "../../models/user";
 import {App, NavController} from "ionic-angular";
-import {Auth} from "../../models/user/auth";
+import {Auth} from "../../models/auth";
 import {Http} from "@angular/http";
 
 declare const ENV;
@@ -25,8 +25,9 @@ export class AuthService {
     return this.app.getRootNav();
   }
 
-  private handleError(error: any): void {
+  private handleError(error: any): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only
+    return Promise.reject(error.message || error);
   }
 
   activate(studentName:string, phone:string, mobile:string): Promise<boolean>{
