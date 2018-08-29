@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {Lesson} from "../../models/lesson";
-import {AuthService} from "../../providers/auth/auth.service";
+import {AuthService} from "../../providers/auth.service";
 import {LessonService} from "../../providers/lesson.service";
 import {CachedLessonService} from "../../providers/cached-lesson.service";
 

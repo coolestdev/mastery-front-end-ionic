@@ -2,7 +2,7 @@ import { Component,ElementRef,ViewChild,DoCheck } from '@angular/core';
 import { AlertController, IonicPage, LoadingController, NavController, NavParams, Platform } from 'ionic-angular';
 import { Calendar } from "../../models/calendar";
 import { Lesson } from "../../models/lesson";
-import { AuthService} from "../../providers/auth/auth.service";
+import { AuthService} from "../../providers/auth.service";
 import { CachedLessonService } from "../../providers/cached-lesson.service";
 import { Timetable } from "../../models/timetable";
 import { LessonOfDay } from "../../models/lesson-of-day";

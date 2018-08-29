@@ -1,6 +1,6 @@
 import { Component} from '@angular/core';
 import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
-import { AuthService} from "../../providers/auth/auth.service";
+import { AuthService} from "../../providers/auth.service";
 
 /**
  * Generated class for the ChangePasswordPage page.

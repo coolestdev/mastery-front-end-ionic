@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
-import {AuthService} from "../../providers/auth/auth.service";
+import {AuthService} from "../../providers/auth.service";
 import {TimetablePage} from "../timetable/timetable";
 import {TimetableCalendarPage} from "../timetable-calendar/timetable-calendar";
 

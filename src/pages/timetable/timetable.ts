@@ -3,7 +3,7 @@ import {Component} from '@angular/core';
 
 import { Timetable } from "../../models/timetable";
 import { Lesson } from "../../models/lesson";
-import { AuthService } from "../../providers/auth/auth.service";
+import { AuthService } from "../../providers/auth.service";
 import { LessonService } from "../../providers/lesson.service";
 import { LessonOfDay } from "../../models/lesson-of-day";
 

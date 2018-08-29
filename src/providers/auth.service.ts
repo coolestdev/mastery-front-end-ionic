@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {User} from "../../models/user";
+import {User} from "../models/user";
 import {App, NavController} from "ionic-angular";
-import {Auth} from "../../models/auth";
+import {Auth} from "../models/auth";
 import {Http} from "@angular/http";
 
 declare const ENV;

@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
-import {Logger} from "../../providers/logger/logger";
-import {AuthService} from "../../providers/auth/auth.service";
+import {Logger} from "../../providers/logger";
+import {AuthService} from "../../providers/auth.service";
 import {AlertController, LoadingController, ToastController, IonicPage, NavController} from "ionic-angular";
 
 @IonicPage({
