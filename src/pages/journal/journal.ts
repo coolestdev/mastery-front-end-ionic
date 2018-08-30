@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController } from "ionic-angular";
+import { Journal } from '../../models/journal';
+import { AuthService } from "../../providers/auth.service";
+import { JournalService } from "../../providers/journal-service"
 
 /**
  * Generated class for the JournalPage page.
@@ -14,7 +17,12 @@ import { NavController } from "ionic-angular";
 })
 export class JournalPage {
 
-  constructor(public navCtrl: NavController) {
+  public journals:Journal[];
+
+  constructor(
+    public navCtrl: NavController,
+    private authService : AuthService,
+    private journalService: JournalService) {
   }
 
   ionViewDidLoad() {

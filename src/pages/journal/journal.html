@@ -6,13 +6,24 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>journal</ion-title>
+  <ion-navbar color="primary">
+    <ion-title>教學日誌</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="authService.logout()">
+        <ion-icon name="log-out"></ion-icon>&nbsp;登出
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
-
 <ion-content padding>
+
+  <ion-item>
+    <ion-label>學生</ion-label>
+    <ion-select>
+      <ion-option *ngFor="let student of authService.user.students" value="student.id" >{{student.name}}</ion-option>
+    </ion-select>
+  </ion-item>
 
 </ion-content>

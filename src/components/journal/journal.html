@@ -1,54 +1,18 @@
-<ion-card no-margin style="width: 100%;"
-[class.core]="classify() === 'core'"
-[class.homework]="classify() === 'homework'"
-[class.other]="classify() === 'other'"
->
+<ion-card no-margin style="width: 100%;">
 
-  <div *ngIf="authService.isParent(); then prtBlock else stdBlock"></div>
+  <ion-item text-wrap>
+    <ion-icon name="time" item-start></ion-icon>
+    <h2>{{journal.created | date:'shortTime' }}</h2>
+  </ion-item>
 
-  <ng-template #prtBlock>
-    <ion-item text-wrap>
-      <ion-icon name="school" item-start></ion-icon>
-      <h2>{{journal.student.name}}</h2>
-    </ion-item>
+  <ion-item>
+    <ion-icon name="person" item-start></ion-icon>
+    <h2 text-wrap>{{journal.staffName}}</h2>
+  </ion-item>
 
-    <ion-item text-wrap>
-      <ion-icon name="time" item-start></ion-icon>
-      <h2>{{journal.staffName}}</h2>
-    </ion-item>
-
-    <ion-item>
-      <ion-icon name="book" item-start></ion-icon>
-      <h2 text-wrap>{{journal.content}}</h2>
-    </ion-item>
-
-  </ng-template>
-
-  <ng-template #stdBlock>
-    <ion-item>
-      <ion-icon name="time" item-start></ion-icon>
-      <h2>{{lesson.startDateTime | date:'shortTime' }} - {{lesson.endDateTime | date:'shortTime'}}</h2>
-      <button *ngIf="!isMkup()" ion-button icon-left outline item-right (click)="chkMkupLson()" style="font-size: 1.4rem;">
-        <ion-icon name="refresh-circle"></ion-icon> 轉堂
-      </button>
-    </ion-item>
-
-    <ion-item text-wrap>
-      <ion-icon name="book" item-start></ion-icon>
-      <h2 text-wrap>{{lesson.name}}</h2>
-    </ion-item>
-  </ng-template>
-
-  <ion-row>
-    <ion-col style="padding: 0px;">
-      <ion-item>
-        <ion-icon name="person" item-start></ion-icon>{{lesson.teacher.name}}
-      </ion-item>
-    </ion-col>
-
-    <ion-col style="padding: 0px;">
-      <ion-item><ion-icon name="navigate" item-start></ion-icon>{{lesson?.room?.name}}</ion-item>
-    </ion-col>
-  </ion-row>
+  <ion-item>
+    <ion-icon name="list" item-start></ion-icon>
+    <h2 text-wrap>{{journal.content}}</h2>
+  </ion-item>
 
 </ion-card>
