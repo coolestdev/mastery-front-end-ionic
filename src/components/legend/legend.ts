@@ -12,7 +12,7 @@ export class LegendComponent {
   constructor() {}
 
   isSmallType(){
-    console.log("grid length = " + this.grid.nativeElement.offsetWidth);
+    //console.log("grid length = " + this.grid.nativeElement.offsetWidth);
     if(this.grid.nativeElement.offsetWidth<=320){
         return true;
     }

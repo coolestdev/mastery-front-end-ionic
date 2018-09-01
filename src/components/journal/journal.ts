@@ -13,7 +13,7 @@ import { Journal } from '../../models/journal';
 })
 export class JournalComponent {
 
-  @Input()journals:Journal;
+  @Input()journal:Journal;
 
   constructor() {}
 

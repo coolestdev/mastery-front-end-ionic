@@ -1,34 +1,38 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, LOCALE_ID, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
-
-import { MyApp } from './app.component';
-
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
-import { LoginPageModule } from "../pages/login/login.module";
-import { ActivatePageModule } from "../pages/activate/activate.module";
-import { AuthService } from "../providers/auth.service";
 import { HttpModule } from "@angular/http";
-import { LessonService } from "../providers/lesson.service";
+
+//ionic stuff
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { StatusBar } from '@ionic-native/status-bar';
+
+//pages
+import { ActivatePageModule } from "../pages/activate/activate.module";
+import { LoginPageModule } from "../pages/login/login.module";
+import { JournalPageModule } from '../pages/journal/journal.module';
 import { TimetableTabPageModule } from "../pages/timetable-tab/timetable-tab.module";
+
+//services
+import { AuthService } from "../providers/auth.service";
 import { CachedLessonService } from "../providers/cached-lesson.service";
-import { JournalComponent } from '../components/journal/journal';
+import { LessonService } from "../providers/lesson.service";
 import { JournalService } from '../providers/journal-service';
 
+import { MyApp } from './app.component';
 
 @NgModule({
   declarations: [
     MyApp,
-    JournalComponent,
   ],
   imports: [
     BrowserModule,
     HttpModule,
     IonicModule.forRoot(MyApp,{backButtonText:'',}),
-    LoginPageModule,
     ActivatePageModule,
-    TimetableTabPageModule
+    JournalPageModule,
+    LoginPageModule,
+    TimetableTabPageModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -38,9 +42,9 @@ import { JournalService } from '../providers/journal-service';
     StatusBar,
     SplashScreen,
     AuthService,
-    LessonService,
     CachedLessonService,
     JournalService,
+    LessonService,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     { provide: LOCALE_ID, useValue: "zh-HK" },
     
