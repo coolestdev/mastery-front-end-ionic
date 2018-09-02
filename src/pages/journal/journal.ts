@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { IonicPage, NavController, AlertController } from "ionic-angular";
 import { Journal } from '../../models/journal';
+import { Student } from '../../models/student';
 import { AuthService } from "../../providers/auth.service";
 import { JournalService } from "../../providers/journal-service"
 
@@ -19,9 +20,9 @@ import { JournalService } from "../../providers/journal-service"
 })
 export class JournalPage {
 
-  public journals: Journal[];
-  public selectedStdId: String;
-  public index: number;
+  journals: Journal[];
+  @Input()selectedStd: Student;
+  index: number;
 
   constructor(
     public navCtrl: NavController,
@@ -33,17 +34,30 @@ export class JournalPage {
 
     if (this.authService.isParent()) {
       if (this.authService.user.students.length > 0) {
-        this.selectedStdId = this.authService.user.students[0].id;
+        this.selectedStd = this.authService.user.students[0];
       }
     } else {
-      this.selectedStdId = this.authService.user.id;
+      this.selectedStd = new Student();
+      this.selectedStd.id = this.authService.user.id;
+      this.selectedStd.name = this.authService.user.name;
     }
 
-    this.journalService.getJournalByStd(this.selectedStdId, this.index++).then(
+    this.getJournal();
+    
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad JournalPage');
+  }
+
+  getJournal(){
+    console.log("getJournal");
+    this.journalService.getJournalByStd(this.selectedStd.id, this.index++).then(
       (journals) => {
         if (journals && journals.length > 0) {
           this.journals = journals;
         } else {
+          this.journals = [];
           let alert = this.alertCtrl.create({
             title: '找不到教學日誌',
             cssClass: 'customAlert',
@@ -55,15 +69,11 @@ export class JournalPage {
     );
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad JournalPage');
-  }
-
   doInfinite(infiniteScroll) {
 
     setTimeout(() => {
       
-      this.journalService.getJournalByStd(this.selectedStdId,this.index++).then(
+      this.journalService.getJournalByStd(this.selectedStd.id,this.index++).then(
         (journals) => {
           if(journals){
             

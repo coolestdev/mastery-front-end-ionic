@@ -1,8 +1,8 @@
 <ion-card no-margin style="width: 100%;">
 
-  <ion-item text-wrap>
+  <ion-item>
     <ion-icon name="time" item-start></ion-icon>
-    <h2>{{journal.created | date:'shortTime' }}</h2>
+    <h2 text-wrap>{{journal.created | date:'medium' }}</h2>
   </ion-item>
 
   <ion-item>
@@ -10,7 +10,7 @@
     <h2 text-wrap>{{journal.staffName}}</h2>
   </ion-item>
 
-  <ion-item>
+  <ion-item style="vertical-align: top">
     <ion-icon name="list" item-start></ion-icon>
     <h2 text-wrap>{{journal.content}}</h2>
   </ion-item>

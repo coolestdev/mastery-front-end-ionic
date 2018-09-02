@@ -7,7 +7,10 @@
 <ion-header>
 
   <ion-navbar color="primary">
-    <ion-title>教學日誌</ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>教學日誌 | {{authService.user?.name}}</ion-title>
     <ion-buttons end>
       <button ion-button (click)="authService.logout()">
         <ion-icon name="log-out"></ion-icon>&nbsp;登出
@@ -21,8 +24,8 @@
 
   <ion-item *ngIf="authService.isParent()">
     <ion-label>學生</ion-label>
-    <ion-select [(ngModel)]="selectedStdId">
-      <ion-option *ngFor="let student of authService.user.students" value="student.id" >{{student.name}}</ion-option>
+    <ion-select [(ngModel)]="selectedStd" (ionChange)="getJournal()" interface="action-sheet">
+      <ion-option *ngFor="let s of authService.user.students" [value]="s">{{s.name}}</ion-option>
     </ion-select>
   </ion-item>
 
@@ -35,9 +38,7 @@
   </ion-grid>
 
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
-    <ion-infinite-scroll-content
-      loadingSpinner="bubbles"
-      loadingText="存取更多日誌">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="存取更多日誌">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
 
