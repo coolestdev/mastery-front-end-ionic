@@ -18,7 +18,7 @@ export class JournalService {
   }
 
   getJournalByStd(stdId:String,index:number):Promise<Journal[]>{
-    let parm:string = `/${stdId}/${index}/`
+    let parm:string = `/${stdId}/${index}/`;
     let reqUrl:string = this.journalUrl + parm;
     console.log("reqUrl=" + reqUrl);
     return this.http.get(reqUrl)

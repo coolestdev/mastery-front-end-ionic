@@ -29,7 +29,7 @@ export class JournalPage {
     public alertCtrl: AlertController,
     private authService: AuthService,
     private journalService: JournalService) {
-    
+
     this.index = 0;
 
     if (this.authService.isParent()) {
@@ -43,7 +43,7 @@ export class JournalPage {
     }
 
     this.getJournal();
-    
+
   }
 
   ionViewDidLoad() {
@@ -52,6 +52,7 @@ export class JournalPage {
 
   getJournal(){
     console.log("getJournal");
+    this.index = 0;
     this.journalService.getJournalByStd(this.selectedStd.id, this.index++).then(
       (journals) => {
         if (journals && journals.length > 0) {
@@ -72,20 +73,20 @@ export class JournalPage {
   doInfinite(infiniteScroll) {
 
     setTimeout(() => {
-      
+
       this.journalService.getJournalByStd(this.selectedStd.id,this.index++).then(
         (journals) => {
           if(journals){
-            
+
             for(let journal of journals){
               console.log(journal.id);
               this.journals.push(journal);
             }
-            
+
           }
-  
+
           infiniteScroll.complete();
-  
+
         }
       )
 
